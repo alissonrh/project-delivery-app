@@ -1,8 +1,8 @@
-const validateLogin = require("../utils/validations/loginValidation");
+const validateLogin = require('../Utils/validations/loginValidation');
 
 const loginMiddleware = (req, _res, next) => {
   try {
-    validateLogin(req.body)
+    validateLogin(req.body);
     next();
   } catch (error) {
     next(error);

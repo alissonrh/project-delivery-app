@@ -4,6 +4,6 @@ const { loginMiddleware } = require('../Middlewares');
 
 const routers = express.Router();
 
-routers.post('/', loginMiddleware, loginController)
+routers.post('/', loginMiddleware, loginController);
 
 module.exports = routers;

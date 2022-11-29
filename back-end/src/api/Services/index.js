@@ -1,4 +1,4 @@
-const loginService = require('../Services/loginService');
+const loginService = require('./loginService');
 
 module.exports = {
   loginService,
