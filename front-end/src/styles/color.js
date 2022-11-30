@@ -1,0 +1,15 @@
+export const COLOR_GREEN = '#036B52';
+export const COLOR_GREEN_LIGTH = '#2FC18C';
+export const COLOR_BLUE_DARK = '#421981';
+export const COLOR_BLUE_LIGTH = '#056CF9';
+
+// COLORS STATUS
+
+export const COLOR_STATUS_DELIVERED = '#00CC9B';
+export const COLOR_STATUS_PROCESSING = '#66CC00';
+export const COLOR_STATUS_PENDING = '#CCB800';
+
+// BACKGROUND COLORS
+
+export const COLOR_BACKGROUND_WHITE = '#FFFFFF';
+export const COLOR_BACKGROUND_GREY = '#B1C2BE';
