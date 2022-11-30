@@ -7,10 +7,8 @@ import PasswordInput from '../../components/PasswordInput';
 import LoginContext from '../../context/LoginContext';
 
 function Register() {
-  const { email, setEmail, password, setPassword, validEmail,
-    setValidEmail, validPassword, setValidPassword } = useContext(LoginContext);
+  const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [name, setName] = useState('');
-  const [validName, setValidName] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -33,8 +31,12 @@ function Register() {
   };
 
   useEffect(() => {
-    if (validEmail && validPassword && validName) setDisabled(false);
-  }, [validEmail, validPassword, validName]);
+    if (email && password && name) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [email, password, name]);
 
   if (isLogged) return <Navigate to="/customer/products" />;
 
@@ -42,17 +44,14 @@ function Register() {
     <>
       <NameInput
         setName={ setName }
-        setValidName={ setValidName }
         dataTestid="common_register__input-name"
       />
       <EmailInput
         setEmail={ setEmail }
-        setValidEmail={ setValidEmail }
         dataTestid="common_register__input-email"
       />
       <PasswordInput
         setPassword={ setPassword }
-        setValidPassword={ setValidPassword }
         dataTestid="common_register__input-password"
       />
       <button

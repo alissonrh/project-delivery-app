@@ -6,8 +6,7 @@ import PasswordInput from '../../components/PasswordInput';
 import LoginContext from '../../context/LoginContext';
 
 function Login() {
-  const { email, setEmail, password, setPassword, validEmail,
-    setValidEmail, validPassword, setValidPassword } = useContext(LoginContext);
+  const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [disabled, setDisabled] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
@@ -35,8 +34,10 @@ function Login() {
   };
 
   useEffect(() => {
-    if (validEmail && validPassword) setDisabled(false);
-  }, [validEmail, validPassword]);
+    if (email && password) {
+      return setDisabled(false);
+    } setDisabled(true);
+  }, [email, password]);
 
   if (isLogged) return <Navigate to="/customer/products" />;
 
@@ -44,12 +45,10 @@ function Login() {
     <form>
       <EmailInput
         setEmail={ setEmail }
-        setValidEmail={ setValidEmail }
         dataTestid="common_login__input-email"
       />
       <PasswordInput
         setPassword={ setPassword }
-        setValidPassword={ setValidPassword }
         dataTestid="common_login__input-password"
       />
       <button
