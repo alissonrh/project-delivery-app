@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 const MIN_SENHA = 6;
 
-function PasswordInput({ setPassword, setValidPassword, dataTestid }) {
+function PasswordInput({ setPassword, dataTestid }) {
   const handlePassword = (value) => {
     if (value.length >= MIN_SENHA) {
-      setValidPassword(true);
       setPassword(value);
+    } else {
+      setPassword(null);
     }
   };
 
@@ -18,7 +19,6 @@ function PasswordInput({ setPassword, setValidPassword, dataTestid }) {
         data-testid={ dataTestid }
         type="password"
         id="password"
-        className="password"
         placeholder="Min. 6 dígitos"
         onChange={ (e) => handlePassword(e.target.value) }
       />

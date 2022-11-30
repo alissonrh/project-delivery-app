@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 
 const MIN_NOME = 12;
 
-function NameInput({ setName, setValidName, dataTestid }) {
+function NameInput({ setName, dataTestid }) {
   const handleName = (value) => {
     if (value.length >= MIN_NOME) {
-      setValidName(true);
       setName(value);
+    } else {
+      setName(null);
     }
   };
 
   return (
-    <label htmlFor="Name">
+    <label htmlFor="name">
       Nome
       <input
         data-testid={ dataTestid }
-        type="Name"
-        id="Name"
-        className="Name"
+        type="text"
+        id="name"
         placeholder="Min. 12 caracteres"
         onChange={ (e) => handleName(e.target.value) }
       />
