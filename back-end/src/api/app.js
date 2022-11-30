@@ -1,7 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const errorMiddleware = require('./Middlewares/errorMiddleware');
-const routesLogin = require('./Routes/loginRoute');
+const {
+  loginRoute,
+  userRoute,
+  customerRoute,
+} = require('./Routes');
 
 const app = express();
 app.use(cors());
@@ -10,7 +14,9 @@ app.use(express.json());
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-app.use('/login', routesLogin);
+app.use('/login', loginRoute);
+app.use('/register', userRoute);
+app.use('/customer', customerRoute);
 
 app.use(errorMiddleware);
 
