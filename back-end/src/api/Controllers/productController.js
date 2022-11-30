@@ -6,7 +6,7 @@ const allProducts = async (_req, res, next) => {
     return res.status(200).json(result);
   } catch (error) {
     next(error);
-  };
+  }
 };
 
 module.exports = {
