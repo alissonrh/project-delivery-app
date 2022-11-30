@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginProvider from './context/LoginProvider';
 
 import Login from './screens/Comum/Login';
@@ -20,9 +20,7 @@ function App() {
       <Route
         path="/"
         element={
-          <LoginProvider>
-            <Login />
-          </LoginProvider>
+          <Navigate to="/login" />
         }
       />
       <Route
