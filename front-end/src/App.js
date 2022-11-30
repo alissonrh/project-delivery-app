@@ -18,7 +18,6 @@ function App() {
         }
       />
       <Route
-        exact
         path="/"
         element={
           <LoginProvider>

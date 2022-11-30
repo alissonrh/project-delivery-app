@@ -5,7 +5,7 @@ const MIN_SENHA = 6;
 
 function PasswordInput({ setPassword, setValidPassword, dataTestid }) {
   const handlePassword = (value) => {
-    if (value.length > MIN_SENHA) {
+    if (value.length >= MIN_SENHA) {
       setValidPassword(true);
       setPassword(value);
     }

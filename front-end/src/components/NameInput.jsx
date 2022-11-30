@@ -5,7 +5,7 @@ const MIN_NOME = 12;
 
 function NameInput({ setName, setValidName, dataTestid }) {
   const handleName = (value) => {
-    if (value.length > MIN_NOME) {
+    if (value.length >= MIN_NOME) {
       setValidName(true);
       setName(value);
     }

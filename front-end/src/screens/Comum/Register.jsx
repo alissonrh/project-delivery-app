@@ -36,7 +36,7 @@ function Register() {
     if (validEmail && validPassword && validName) setDisabled(false);
   }, [validEmail, validPassword, validName]);
 
-  if (isLogged) return <Navigate to="/products" />;
+  if (isLogged) return <Navigate to="/customer/products" />;
 
   return (
     <>

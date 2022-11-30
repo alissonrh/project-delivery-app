@@ -38,7 +38,7 @@ function Login() {
     if (validEmail && validPassword) setDisabled(false);
   }, [validEmail, validPassword]);
 
-  if (isLogged) return <Navigate to="/products" />;
+  if (isLogged) return <Navigate to="/customer/products" />;
 
   return (
     <form>
