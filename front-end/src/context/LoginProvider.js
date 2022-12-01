@@ -5,13 +5,16 @@ import LoginContext from './LoginContext';
 function LoginProvider({ children }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [isLogged, setIsLogged] = useState(false);
 
   const contextUser = useMemo(() => ({
     email,
     setEmail,
     password,
     setPassword,
-  }), [email, password]);
+    isLogged,
+    setIsLogged,
+  }), [email, password, isLogged]);
 
   return (
     <LoginContext.Provider value={ contextUser }>
