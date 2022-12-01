@@ -9,4 +9,13 @@ const createSale = async (req, res, next) => {
   }
 };
 
-module.exports = { createSale };
+const findSale = async (req, res, next) => {
+  try {
+    const saleById = await saleService.findSaleByPk(req.params.id);
+    res.status(200).json(saleById);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createSale, findSale };

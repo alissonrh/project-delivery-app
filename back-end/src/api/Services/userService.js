@@ -9,11 +9,11 @@ async function createUser({ name, email, password }) {
   const hash = md5(password);
   const createdUser = await User.create(
     { name, email, password: hash },
-    { attributes: { exclude: ['password', 'id'] } },
   );
-  const payload = { ...createdUser.dataValues };
-  const token = createToken(payload);
-  return { ...payload, token };
+  const { password: _, ...userInfo } = createdUser.dataValues;
+  const token = createToken(userInfo);
+  // delete userInfo.id;
+  return { ...userInfo, token };
 }
 
 async function findSellers() {

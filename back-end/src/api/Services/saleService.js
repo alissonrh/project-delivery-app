@@ -30,4 +30,13 @@ async function createSale({ sales, saleInfo }) {
   }
 }
 
-module.exports = { createSale };
+async function findSaleByPk(id) {
+  try {
+    const orderById = await Sale.findByPk(id);
+    return orderById;
+  } catch (err) {
+    throw new CustomError(err);
+  }
+}
+
+module.exports = { createSale, findSaleByPk };

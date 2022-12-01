@@ -4,7 +4,7 @@ const fs = require('fs');
 const CustomError = require('../Errors/CustomError');
 
 const TOKEN_SECRET = fs.readFileSync(path
-  .join(__dirname, '..', '..', '..', 'jwt.evaluation.key'), 'utf-8').trim();
+  .join(__dirname, '..', '..', '..', 'jwt.evaluation.key'), 'utf-8');
 
 const createToken = (user) => jwt.sign(user, TOKEN_SECRET);
 
