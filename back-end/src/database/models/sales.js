@@ -15,10 +15,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: true,
     },
     totalPrice: DataTypes.DECIMAL(9, 2),
-    deliveryAdress: DataTypes.STRING,
+    deliveryAddress: DataTypes.STRING,
     deliveryNumber: DataTypes.STRING,
     saleDate: DataTypes.DATE,
-    status: DataTypes.STRING,
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'Pendente',
+    },
   }, {
     createdAt: 'saleDate',
     updatedAt: false,
