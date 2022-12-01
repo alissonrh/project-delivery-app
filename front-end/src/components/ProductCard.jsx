@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function ProductCard({ id, price, urlImage, name }) {
+  console.log(urlImage);
   return (
     <div>
       <span data-testid={ `customer_products__element-card-price-${id}` }>

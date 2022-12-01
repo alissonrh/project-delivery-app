@@ -14,11 +14,11 @@ function NavBar() {
   }, []);
 
   return (
-    <header>
+    <header style={ { backgroundColor: 'blue' } }>
       <nav>
         <button
           type="button"
-          onClick={ () => navigate('/teste') }
+          onClick={ () => navigate('/customer/products') }
           data-testid="customer_products__element-navbar-link-products"
         >
           PRODUTOS
@@ -26,7 +26,7 @@ function NavBar() {
         </button>
         <button
           type="button"
-          onClick={ () => navigate('/teste') }
+          onClick={ () => navigate('/customer/checkout') }
           data-testid="customer_products__element-navbar-link-orders"
         >
           MEUS PEDIDOS
