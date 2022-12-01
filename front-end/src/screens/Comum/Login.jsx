@@ -6,9 +6,9 @@ import PasswordInput from '../../components/PasswordInput';
 import LoginContext from '../../context/LoginContext';
 
 function Login() {
-  const { email, setEmail, password, setPassword } = useContext(LoginContext);
+  const { email, setEmail, password, setPassword,
+    isLogged, setIsLogged } = useContext(LoginContext);
   const [disabled, setDisabled] = useState(true);
-  const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const navigate = useNavigate();
 

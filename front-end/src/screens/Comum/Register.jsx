@@ -7,10 +7,10 @@ import PasswordInput from '../../components/PasswordInput';
 import LoginContext from '../../context/LoginContext';
 
 function Register() {
-  const { email, setEmail, password, setPassword } = useContext(LoginContext);
+  const { email, setEmail, password, setPassword,
+    isLogged, setIsLogged } = useContext(LoginContext);
   const [name, setName] = useState('');
   const [disabled, setDisabled] = useState(true);
-  const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
 
   const createUser = async (event) => {
