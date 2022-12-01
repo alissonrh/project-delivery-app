@@ -16,11 +16,12 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { token } = await Post('/login', { email, password });
+      const user = await Post('/login', { email, password });
 
-      setToken(token);
+      setToken(user.token);
+      console.log(user.token);
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
 
       setIsLogged(true);
     } catch (error) {
