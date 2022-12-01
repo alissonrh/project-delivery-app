@@ -17,11 +17,12 @@ function Register() {
     event.preventDefault();
 
     try {
-      const { token } = await Post('/register', { email, password, name });
+      const user = await Post('/register', { email, password, name });
 
-      setToken(token);
+      setToken(user.token);
+      console.log(user.token);
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
 
       setIsLogged(true);
     } catch (error) {

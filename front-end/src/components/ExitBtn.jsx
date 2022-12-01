@@ -6,7 +6,7 @@ function ExitBtn() {
   const { setIsLogged } = useContext(LoginContext);
   const navigate = useNavigate();
   const logoff = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setIsLogged(false);
     navigate('/login');
   };

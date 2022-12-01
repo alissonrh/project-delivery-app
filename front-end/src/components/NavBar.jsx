@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ExitBtn from './ExitBtn';
 /* import PropTypes from 'prop-types'; */
 
 function NavBar() {
   const navigate = useNavigate();
+  const [name, setName] = useState();
+
+  useEffect(() => {
+    const objLocalStorage = localStorage.getItem('user');
+    const stringToObj = JSON.parse(objLocalStorage);
+    setName(stringToObj.name);
+  }, []);
+
   return (
     <header>
       <nav>
@@ -27,8 +35,7 @@ function NavBar() {
         <p
           data-testid="customer_products__element-navbar-user-full-name"
         >
-          NOME
-
+          {name}
         </p>
         <ExitBtn />
       </nav>
