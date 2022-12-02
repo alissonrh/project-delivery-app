@@ -9,9 +9,9 @@ function SalesCount() {
   const [disabled, setDisabled] = useState(true);
 
   useEffect(() => {
-    const teste = sales
+    const somaTotal = sales
       .reduce((acc, e) => acc + (e.quantity * e.unitPrice), 0);
-    setSoma(teste);
+    setSoma(somaTotal);
   }, [soma, sales]);
 
   useEffect(() => {
@@ -23,6 +23,13 @@ function SalesCount() {
 
   return (
     <button
+      style={ {
+        position: 'fixed',
+        bottom: '5%',
+        right: '5%',
+        zIndex: 999,
+        fontSize: '36px',
+      } }
       type="button"
       data-testid="customer_products__button-cart"
       onClick={ () => navigate('/customer/checkout') }

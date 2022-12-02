@@ -62,7 +62,7 @@ function ProductCard({ id, price, urlImage, name }) {
       <button
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
-        onClick={ () => setQuantity(quantity - 1) }
+        onClick={ () => setQuantity(Number(quantity) - 1) }
         disabled={ disabled }
       >
         -
@@ -72,12 +72,12 @@ function ProductCard({ id, price, urlImage, name }) {
         data-testid={ `customer_products__input-card-quantity-${id}` }
         type="number"
         value={ quantity }
-        readOnly
+        onChange={ (e) => { setQuantity(e.target.value); } }
       />
       <button
         data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
-        onClick={ () => setQuantity(quantity + 1) }
+        onClick={ () => setQuantity(Number(quantity) + 1) }
       >
         +
 
