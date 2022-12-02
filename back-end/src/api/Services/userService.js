@@ -16,6 +16,15 @@ async function createUser({ name, email, password }) {
   return { ...userInfo, token };
 }
 
+async function findUserById(id) {
+  try {
+    const user = await User.findByPk(id);
+    return user;
+  } catch (error) {
+    throw new CustomError('User not found', 404);
+  }
+}
+
 async function findSellers() {
   const sellers = await User.findAll({ where: { role: 'seller' } });
   return sellers;
@@ -24,4 +33,5 @@ async function findSellers() {
 module.exports = {
   createUser,
   findSellers,
+  findUserById,
 };
