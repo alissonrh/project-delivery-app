@@ -5,6 +5,7 @@ import ProductsProvider from './context/ProductsProvider';
 import Products from './screens/Cliente/Products';
 import Checkout from './screens/Checkout';
 import DetailsOrder from './screens/DetailesOrder';
+import MyOrders from './screens/MyOrders';
 
 import Login from './screens/Comum/Login';
 import Register from './screens/Comum/Register';
@@ -50,6 +51,14 @@ function App() {
         element={
           <LoginProvider>
             <Checkout />
+          </LoginProvider>
+        }
+      />
+      <Route
+        path="/customer/orders"
+        element={
+          <LoginProvider>
+            <MyOrders />
           </LoginProvider>
         }
       />

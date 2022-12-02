@@ -8,12 +8,14 @@ async function createUser({ name, email, password }) {
   if (user) throw new CustomError('User already exist', 409);
   const hash = md5(password);
   const createdUser = await User.create(
-    { name, email, password: hash },
-    { attributes: { exclude: ['password', 'id'] } },
+  { name, email, password: hash },
   );
+  
   const payload = { ...createdUser.dataValues };
+  delete payload.password;
   const token = createToken(payload);
-  return { ...payload, token };
+  delete payload.id;
+  return { ...payload, token }; 
 }
 
 async function findSellers() {
