@@ -9,8 +9,9 @@ export default function Checkout() {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
   const navigator = useNavigate();
+  console.log(setTotal);
   return (
-    <body>
+    <div>
       <NavBar />
       <h1>Finalizar Pedido</h1>
       <div>
@@ -61,6 +62,6 @@ export default function Checkout() {
           Finalizar Pedido
         </button>
       </div>
-    </body>
+    </div>
   );
 }
