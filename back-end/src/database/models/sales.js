@@ -33,12 +33,12 @@ module.exports = (sequelize, DataTypes) => {
     Sale.belongsTo(models.User, {
       foreignKey: 'userId',
       as: 'customer',
-      through: 'users',
+      // through: 'users',
     });
     Sale.belongsTo(models.User, {
       foreignKey: 'sellerId',
       as: 'seller',
-      through: 'users',
+      // through: 'users',
     });
   };
 

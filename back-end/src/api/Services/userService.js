@@ -8,14 +8,21 @@ async function createUser({ name, email, password }) {
   if (user) throw new CustomError('User already exist', 409);
   const hash = md5(password);
   const createdUser = await User.create(
-  { name, email, password: hash },
+    { name, email, password: hash },
   );
-  
-  const payload = { ...createdUser.dataValues };
-  delete payload.password;
-  const token = createToken(payload);
-  delete payload.id;
-  return { ...payload, token }; 
+  const { password: _, ...userInfo } = createdUser.dataValues;
+  const token = createToken(userInfo);
+  // delete userInfo.id;
+  return { ...userInfo, token };
+}
+
+async function findUserById(id) {
+  try {
+    const user = await User.findByPk(id);
+    return user;
+  } catch (error) {
+    throw new CustomError('User not found', 404);
+  }
 }
 
 async function findSellers() {
@@ -26,4 +33,5 @@ async function findSellers() {
 module.exports = {
   createUser,
   findSellers,
+  findUserById,
 };
