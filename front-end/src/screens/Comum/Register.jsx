@@ -20,7 +20,6 @@ function Register() {
       const user = await Post('/register', { email, password, name });
 
       setToken(user.token);
-      console.log(user.token);
 
       localStorage.setItem('user', JSON.stringify(user));
 

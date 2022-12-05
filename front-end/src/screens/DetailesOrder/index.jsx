@@ -17,8 +17,11 @@ export default function DetailsOrder() {
     data: '12/12/2020',
     status: status[1],
   });
+  console.log(setProfile);
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
+  console.log(setProducts);
+  console.log(setTotal);
   return (
     <>
       <NavBar />

@@ -7,6 +7,7 @@ function ExitBtn() {
   const navigate = useNavigate();
   const logoff = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('sale');
     setIsLogged(false);
     navigate('/login');
   };

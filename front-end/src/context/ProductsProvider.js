@@ -4,7 +4,9 @@ import ProductsContext from './ProductsContext';
 import { Get } from '../api/requests';
 
 function ProductsProvider({ children }) {
+  const localStorageSales = JSON.parse(localStorage.getItem('sale'));
   const [products, setProducts] = useState(false);
+  const [sales, setSales] = useState(localStorageSales || []);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -15,7 +17,9 @@ function ProductsProvider({ children }) {
 
   const contextProducts = useMemo(() => ({
     products,
-  }), [products]);
+    sales,
+    setSales,
+  }), [products, sales]);
 
   return (
     <ProductsContext.Provider value={ contextProducts }>

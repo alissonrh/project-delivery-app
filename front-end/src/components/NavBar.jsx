@@ -26,7 +26,7 @@ function NavBar() {
         </button>
         <button
           type="button"
-          onClick={ () => navigate('/customer/checkout') }
+          onClick={ () => navigate('/customer/orders') }
           data-testid="customer_products__element-navbar-link-orders"
         >
           MEUS PEDIDOS
