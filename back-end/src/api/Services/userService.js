@@ -12,7 +12,6 @@ async function createUser({ name, email, password }) {
   );
   const { password: _, ...userInfo } = createdUser.dataValues;
   const token = createToken(userInfo);
-  // delete userInfo.id;
   return { ...userInfo, token };
 }
 
@@ -26,7 +25,11 @@ async function findUserById(id) {
 }
 
 async function findSellers() {
-  const sellers = await User.findAll({ where: { role: 'seller' } });
+  const sellers = await User.findAll({
+    where: { role: 'seller' },
+    attributes: { exclude: ['password', 'email'] },
+  });
+
   return sellers;
 }
 
