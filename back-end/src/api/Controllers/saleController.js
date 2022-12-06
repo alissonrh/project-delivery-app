@@ -18,4 +18,13 @@ const findSale = async (req, res, next) => {
   }
 };
 
-module.exports = { createSale, findSale };
+const findAllUserSales = async (req, res, next) => {
+  try {
+    const sales = await saleService.findAllUserSales(req.body);
+    res.status(200).json(sales);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createSale, findSale, findAllUserSales };

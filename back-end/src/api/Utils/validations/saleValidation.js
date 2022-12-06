@@ -27,4 +27,30 @@ const validateCreateSale = (saleData) => {
   return value;
 };
 
-module.exports = validateCreateSale;
+const getUserSaleSchema = Joi.object({
+  userId: Joi.number().required(),
+}).required();
+
+const validateUserSale = (userData) => {
+  const { error, value } = getUserSaleSchema.validate(userData);
+
+  if (error) {
+    throw new CustomError(error, 401);
+  }
+  return value;
+};
+
+const getSellerSaleSchema = Joi.object({
+  sellerId: Joi.number().required(),
+}).required();
+
+const validateSellerSale = (userData) => {
+  const { error, value } = getSellerSaleSchema.validate(userData);
+
+  if (error) {
+    throw new CustomError(error, 401);
+  }
+  return value;
+};
+
+module.exports = { validateCreateSale, validateUserSale, validateSellerSale };
