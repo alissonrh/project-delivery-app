@@ -11,7 +11,7 @@ const createToken = (user) => jwt.sign(user, TOKEN_SECRET);
 const validateToken = (req, _res, next) => {
   const { authorization } = req.headers;
 
-  if (!authorization) throw new CustomError('Token not found', 401);
+  if (!authorization) throw new CustomError('Token not found', 404);
 
   try {
     const payload = jwt.verify(authorization, TOKEN_SECRET);
