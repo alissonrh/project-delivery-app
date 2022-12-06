@@ -11,15 +11,15 @@ const sequelize = new Sequelize(config[env]);
 async function createSale({ sales, saleInfo }) {
   try {
     await sequelize.transaction(async (t) => {
-      const prices = await Promise.all(sales.map(async ({ id, quantity }) => {
-        const product = await Product.findOne({ where: { id } });
+      const prices = await Promise.all(sales.map(async ({ productId, quantity }) => {
+        const product = await Product.findOne({ where: { id: productId } });
         return product.price * quantity;
       }));
       const sale = await Sale.create(
         { ...saleInfo, totalPrice: totalPriceCalculator(prices) }, { transaction: t },
       );
-      await Promise.all(sales.map(async ({ id, quantity }) => SaleProduct.create(
-        { saleId: sale.id, productId: id, quantity }, { transaction: t },
+      await Promise.all(sales.map(async ({ productId, quantity }) => SaleProduct.create(
+        { saleId: sale.id, productId, quantity }, { transaction: t },
       )));
     });
     return 'Successful sale';
