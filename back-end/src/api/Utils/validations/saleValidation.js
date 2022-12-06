@@ -9,7 +9,7 @@ const saleInfoSchema = Joi.object({
 }).required();
 
 const salesSchema = Joi.object({
-  id: Joi.number().required(),
+  productId: Joi.number().required(),
   quantity: Joi.number().required(),
 }).required();
 
