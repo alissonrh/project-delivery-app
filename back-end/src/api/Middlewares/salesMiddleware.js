@@ -1,12 +1,38 @@
-const saleValidation = require('../Utils/validations/saleValidation');
+const {
+  validateCreateSale,
+  validateUserSale,
+  validateSellerSale,
+} = require('../Utils/validations/saleValidation');
 
 const createSalesValidation = (req, _res, next) => {
   try {
-    saleValidation(req.body);
+    validateCreateSale(req.body);
     next();
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = createSalesValidation;
+const getUserSalesValidation = (req, _res, next) => {
+  try {
+    validateUserSale(req.body);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getSellerSalesValidation = (req, _res, next) => {
+  try {
+    validateSellerSale(req.body);
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  createSalesValidation,
+  getUserSalesValidation,
+  getSellerSalesValidation,
+};

@@ -12,15 +12,16 @@ async function createSale({ sales, saleInfo }) {
   try {
     await sequelize.transaction(async (t) => {
       const prices = await Promise.all(sales.map(async ({ productId, quantity }) => {
-        const product = await Product.findOne({ where: { id: productId } });
-        return product.price * quantity;
+          const product = await Product.findOne({ where: { id: productId } });
+          return product.price * quantity;
       }));
-      const sale = await Sale.create(
-        { ...saleInfo, totalPrice: totalPriceCalculator(prices) }, { transaction: t },
-      );
-      await Promise.all(sales.map(async ({ productId, quantity }) => SaleProduct.create(
+      const sale = await Sale.create({ ...saleInfo, totalPrice: totalPriceCalculator(prices) },
+        { transaction: t });
+      await Promise.all(
+        sales.map(async ({ productId, quantity }) => SaleProduct.create(
         { saleId: sale.id, productId, quantity }, { transaction: t },
-      )));
+        )),
+      );
     });
     return 'Successful sale';
   } catch (error) {
@@ -49,4 +50,17 @@ async function findSaleByPk(id) {
   return { ...purchaseInfo, products };
 }
 
-module.exports = { createSale, findSaleByPk };
+async function findAllUserSales({ userId }) {
+  return Sale.findAll({ where: { userId } });
+}
+
+async function findAllSellerSales({ sellerId }) {
+  return Sale.findAll({ where: { sellerId } });
+}
+
+module.exports = {
+  createSale,
+  findSaleByPk,
+  findAllUserSales,
+  findAllSellerSales,
+};
