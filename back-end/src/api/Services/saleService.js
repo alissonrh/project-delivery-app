@@ -58,9 +58,20 @@ async function findAllSellerSales({ sellerId }) {
   return Sale.findAll({ where: { sellerId } });
 }
 
+async function updateSale({ status }, id) {
+  const sale = await Sale.findByPk(id);
+  if (!sale) throw new CustomError('Sale not found', 404);
+  await Sale.update(
+    { status },
+    { where: { id } },
+  );
+  return 'Status updated';
+}
+
 module.exports = {
   createSale,
   findSaleByPk,
   findAllUserSales,
   findAllSellerSales,
+  updateSale,
 };

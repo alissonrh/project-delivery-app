@@ -53,4 +53,22 @@ const validateSellerSale = (userData) => {
   return value;
 };
 
-module.exports = { validateCreateSale, validateUserSale, validateSellerSale };
+const updateSaleSchema = Joi.object({
+  status: Joi.string().valid('Preparando', 'Em Trânsito', 'Entregue').required(),
+}).required();
+
+const validateUpdateSale = (saleStatus) => {
+  const { error, value } = updateSaleSchema.validate(saleStatus);
+
+  if (error) {
+    throw new CustomError(error, 401);
+  }
+  return value;
+};
+
+module.exports = {
+  validateCreateSale,
+  validateUserSale,
+  validateSellerSale,
+  validateUpdateSale,
+};

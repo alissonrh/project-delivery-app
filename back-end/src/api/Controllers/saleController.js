@@ -27,4 +27,14 @@ const findAllUserSales = async (req, res, next) => {
   }
 };
 
-module.exports = { createSale, findSale, findAllUserSales };
+const updateSale = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const sale = await saleService.updateSale(req.body, id);
+    res.status(200).json(sale);
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { createSale, findSale, findAllUserSales, updateSale };
