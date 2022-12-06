@@ -20,6 +20,12 @@ routers.post(
 
 routers.get('/orders/:id', saleController.findSale);
 
+routers.put(
+  '/orders/:id',
+  salesMiddleware.updateSaleValidation,
+  saleController.updateSale,
+);
+
 routers.get(
   '/orders',
   salesMiddleware.getUserSalesValidation,
