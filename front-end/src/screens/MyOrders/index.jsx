@@ -4,17 +4,21 @@ import NavBar from '../../components/NavBar';
 import OrderCard from '../../components/OrderCard';
 
 export default function MyOrders() {
-  const [orders, setOrders] = useState();
+  const [orders, setOrders] = useState([]);
+  const getProducts = async (userId) => {
+    setOrders(await GetId('/customer/checkout', userId));
+  };
+
   useEffect(() => {
-    const getProducts = async () => {
-      setOrders(await GetId('/customer/checkout', ));
-    };
-    getProducts();
+    const userId = JSON.parse(localStorage.getItem('user')).id;
+    console.log(userId);
+    getProducts(userId);
+    console.log(orders);
   }, []);
   return (
     <div>
       <NavBar />
-      {orders.map((e) => (
+      {orders?.map((e) => (
         <OrderCard
           key={ e.id }
           id={ e.id }
