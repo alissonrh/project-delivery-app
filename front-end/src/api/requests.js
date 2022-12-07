@@ -15,9 +15,23 @@ export const Get = async (endpoint) => {
 };
 
 export const GetId = async (endpoint, body) => {
+  console.log(endpoint, body);
   const { data } = await api.get(endpoint, body);
   return data;
 };
+
+/* export const GetId = async (endpoint, body) => {
+  await fetch(endpoint, {
+    method: 'GET',
+    body: JSON.stringify(body),
+  })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => console.log(err));
+}; */
+
+// https://masteringjs.io/tutorials/axios/get-with-data
 
 export const Post = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);

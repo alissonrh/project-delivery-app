@@ -24,11 +24,13 @@ function ProductCard({ id, price, urlImage, name }) {
   useEffect(() => {
     if (sales.some((e) => e.productId === id)) {
       const teste = sales.filter((e) => e.productId !== id);
-      const teste2 = [...teste, { productId: id, quantity, unitPrice: price }]
+      const teste2 = [...teste,
+        { productId: id, quantity, unitPrice: price, urlImage, name }]
         .filter((e) => e.quantity > 0);
       setSales(teste2);
     } else {
-      const newSales = [...sales, { productId: id, quantity, unitPrice: price }]
+      const newSales = [...sales,
+        { productId: id, quantity, unitPrice: price, urlImage, name }]
         .filter((e) => e.quantity > 0);
       setSales(newSales);
     }

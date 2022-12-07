@@ -17,7 +17,7 @@ function Login() {
 
     try {
       const user = await Post('/login', { email, password });
-
+      console.log({ email, password });
       setToken(user.token);
       console.log(user.token);
 
