@@ -1,15 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import Select from '../../components/Select';
 import ItemPedido from '../../components/ItemPedido';
 import Total from '../../components/Total';
+import { Get, Post } from '../../api/requests';
 
 export default function Checkout() {
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
+  const [sellers, setSellers] = useState([]);
+  const [user, setUser] = useState();
+  const [sellerId, setSellerId] = useState(0);
+  const [deliveryAddress, setAdress] = useState('');
+  const [deliveryNumber, setNumber] = useState('');
+  const RESPONSE_STATUS = 201;
+  useEffect(() => {
+    const getSellers = async () => {
+      const res = await Get('/customer/checkout');
+      setSellers(res);
+    };
+    getSellers();
+  }, []);
+  useEffect(() => {
+    const getProducts = () => {
+      const productsStorage = JSON.parse(localStorage.getItem('sale'));
+      const userStorage = JSON.parse(localStorage.getItem('user'));
+      setUser(userStorage);
+      setProducts(productsStorage);
+    };
+    getProducts();
+  }, []);
   const navigator = useNavigate();
-  console.log(setTotal);
+  useEffect(() => {
+    const totalValue = () => {
+      const totalValueProducts = products.reduce((acc, product) => {
+        const totalValueProduct = product.price * product.quantity;
+        return acc + totalValueProduct;
+      }, 0);
+      setTotal(totalValueProducts);
+    };
+    totalValue();
+  }, [products]);
+
+  const handleSubmit = async () => {
+    const newProduct = products.map((product) => ({
+      productId: product.productId,
+      quantity: product.quantity,
+    }));
+    try {
+      const reqBody = {
+        saleInfo: {
+          userId: user.id,
+          sellerId,
+          deliveryAddress,
+          deliveryNumber,
+        },
+        sales: newProduct,
+      };
+      const res = await Post('/customer/checkout', reqBody);
+      if (res.status === RESPONSE_STATUS) {
+        navigator(`/customer/orders/${res.saleId}`);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <div>
       <NavBar />
@@ -48,17 +104,30 @@ export default function Checkout() {
         <div>
           <div>
             <h3>P. Vendedora Responsável:</h3>
-            <Select />
+            <Select sellers={ sellers } setSellerId={ setSellerId } />
           </div>
           <div>
             <h3>Endereço</h3>
-            <input type="text" placeholder="Rua" />
+            <input
+              value={ deliveryAddress }
+              onChange={ (e) => setAdress(e.target.value) }
+              type="text"
+              placeholder="Rua"
+            />
           </div>
           <div>
-            <input type="text" placeholder="Número" />
+            <input
+              value={ deliveryNumber }
+              onChange={ (e) => setNumber(e.target.value) }
+              type="text"
+              placeholder="Número"
+            />
           </div>
         </div>
-        <button type="submit">
+        <button
+          onClick={ () => handleSubmit() }
+          type="submit"
+        >
           Finalizar Pedido
         </button>
       </div>
