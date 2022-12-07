@@ -7,13 +7,12 @@ function ProductCard({ id, price, urlImage, name }) {
   const [quantity, setQuantity] = useState(0);
   const [disabled, setDisabled] = useState(true);
 
-  
   useEffect(() => {
     const localStorageSales = JSON.parse(localStorage.getItem('sale'));
     localStorageSales?.forEach((e) => {
       if (e.productId === id) setQuantity(e.quantity);
     });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (quantity <= 0) {
@@ -41,7 +40,7 @@ function ProductCard({ id, price, urlImage, name }) {
     };
     setLocalStorage();
   }, [sales]);
-  
+
   return (
     <div>
       <span data-testid={ `customer_products__element-card-price-${id}` }>
