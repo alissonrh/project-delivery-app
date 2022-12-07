@@ -1,10 +1,26 @@
-export default function Select() {
+import PropTypes from 'prop-types';
+
+export default function Select({ sellers, setSellerId }) {
   return (
     <select>
-      <option value="1">Opção 1</option>
-      <option value="2">Opção 2</option>
-      <option value="3">Opção 3</option>
-      <option value="4">Opção 4</option>
+      {sellers.map((seller, index) => (
+        <option
+          onChange={ setSellerId(seller.id) }
+          key={ index }
+          value={ seller.id }
+        >
+          {seller.name}
+
+        </option>
+      ))}
     </select>
   );
 }
+
+Select.propTypes = {
+  sellers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    role: PropTypes.string,
+  }).isRequired),
+}.isRequired;
