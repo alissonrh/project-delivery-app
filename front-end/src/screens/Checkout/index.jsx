@@ -21,7 +21,6 @@ export default function Checkout() {
       setSellers(res);
     };
     getSellers();
-    setTotal(2);
   }, []);
   useEffect(() => {
     const getProducts = () => {
@@ -33,7 +32,16 @@ export default function Checkout() {
     getProducts();
   }, []);
   const navigator = useNavigate();
-  // console.log(setTotal);
+  useEffect(() => {
+    const totalValue = () => {
+      const totalValueProducts = products.reduce((acc, product) => {
+        const totalValueProduct = product.price * product.quantity;
+        return acc + totalValueProduct;
+      }, 0);
+      setTotal(totalValueProducts);
+    };
+    totalValue();
+  }, [products]);
 
   const handleSubmit = async () => {
     const newProduct = products.map((product) => ({
