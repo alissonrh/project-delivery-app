@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { GetId } from '../../api/requests';
 import NavBar from '../../components/NavBar';
 import OrderCard from '../../components/OrderCard';
-import pedidos from '../../mocks/pedidos';
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -18,7 +17,7 @@ export default function MyOrders() {
   return (
     <div>
       <NavBar />
-      {pedidos?.map((e) => (
+      {orders?.map((e) => (
         <OrderCard
           key={ e.id }
           id={ e.id }

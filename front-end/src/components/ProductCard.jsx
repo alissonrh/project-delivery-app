@@ -34,7 +34,7 @@ function ProductCard({ id, price, urlImage, name }) {
         .filter((e) => e.quantity > 0);
       setSales(newSales);
     }
-  }, [id, price, quantity, sales, setSales]);
+  }, [quantity]);
 
   useEffect(() => {
     const setLocalStorage = () => {

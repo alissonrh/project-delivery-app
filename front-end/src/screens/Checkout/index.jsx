@@ -4,7 +4,7 @@ import NavBar from '../../components/NavBar';
 import Select from '../../components/Select';
 import ItemPedido from '../../components/ItemPedido';
 import Total from '../../components/Total';
-import { Get, Post } from '../../api/requests';
+import { Get, PostAuth } from '../../api/requests';
 
 export default function Checkout() {
   const [products, setProducts] = useState([]);
@@ -14,7 +14,6 @@ export default function Checkout() {
   const [sellerId, setSellerId] = useState(0);
   const [deliveryAddress, setAdress] = useState('');
   const [deliveryNumber, setNumber] = useState('');
-  const RESPONSE_STATUS = 201;
   useEffect(() => {
     const getSellers = async () => {
       const res = await Get('/customer/checkout');
@@ -58,10 +57,8 @@ export default function Checkout() {
         },
         sales: newProduct,
       };
-      const res = await Post('/customer/checkout', reqBody);
-      if (res.status === RESPONSE_STATUS) {
-        navigator(`/customer/orders/${res.saleId}`);
-      }
+      const res = await PostAuth('/customer/checkout', reqBody, user.token);
+      navigator(`/customer/orders/${res.saleId}`);
     } catch (e) {
       console.log(e);
     }
@@ -80,11 +77,9 @@ export default function Checkout() {
       </div>
       <div>
         {products.map((item, index) => (
-          <button
+          <div
             key={ index }
             data-testids={ `element-order-table-name-${index}` }
-            onClick={ () => navigator(`/customer/orders/${index}`) }
-            type="button"
           >
             <ItemPedido item={ item } index={ index } />
             <button
@@ -93,9 +88,8 @@ export default function Checkout() {
               type="button"
             >
               Remover item
-
             </button>
-          </button>
+          </div>
         ))}
       </div>
       <Total total={ total } />
@@ -125,8 +119,8 @@ export default function Checkout() {
           </div>
         </div>
         <button
-          onClick={ () => handleSubmit() }
           type="submit"
+          onClick={ () => handleSubmit() }
         >
           Finalizar Pedido
         </button>
