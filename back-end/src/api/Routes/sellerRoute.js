@@ -13,7 +13,7 @@ routers.put(
   saleController.updateSale,
 );
 
-routers.get(
+routers.post(
   '/orders',
   salesMiddleware.getSellerSalesValidation,
   sellerController.findAllSellerSales,
