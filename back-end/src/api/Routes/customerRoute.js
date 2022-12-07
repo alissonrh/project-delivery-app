@@ -5,6 +5,7 @@ const {
   saleController,
 } = require('../Controllers');
 const { salesMiddleware } = require('../Middlewares');
+const { validateToken } = require('../Utils/jwt');
 
 const routers = express.Router();
 
@@ -14,6 +15,7 @@ routers.get('/checkout', customerController.allSellers);
 
 routers.post(
   '/checkout',
+  validateToken,
   salesMiddleware.createSalesValidation,
   saleController.createSale,
 );
@@ -26,7 +28,7 @@ routers.put(
   saleController.updateSale,
 );
 
-routers.get(
+routers.post(
   '/orders',
   salesMiddleware.getUserSalesValidation,
   saleController.findAllUserSales,
