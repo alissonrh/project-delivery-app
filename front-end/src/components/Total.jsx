@@ -4,10 +4,12 @@ export default function Total(props) {
   const { total } = props;
   return (
     <div>
-      <p>
+      <p
+        data-testid="customer_checkout__element-order-total-price"
+      >
         Total:
         {' '}
-        {total}
+        {total.toFixed(2).replace('.', ',')}
       </p>
     </div>
   );

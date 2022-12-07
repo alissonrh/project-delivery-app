@@ -1,67 +1,71 @@
-import React, { useState } from 'react';
-import ItemPedido from '../../components/ItemPedido';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
-import Total from '../../components/Total';
+import { Get } from '../../api/requests';
+import OrderDetailsItem from '../../components/OrderDetailsItem';
 
-const status = {
+/* const status = {
   0: 'Pendente',
   1: 'Preparando',
   2: 'Em Trânsito',
   3: 'Entregue',
-};
+}; */
 
 export default function DetailsOrder() {
-  const [profile, setProfile] = useState({
-    pedido: 3,
-    vendedor: 'Maria',
-    data: '12/12/2020',
-    status: status[1],
-  });
-  console.log(setProfile);
-  const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(0);
-  console.log(setProducts);
+  const [products, setProducts] = useState();
+  const [total, setTotal] = useState(0.00);
+  const { id } = useParams();
+  console.log(id);
+
+  useEffect(() => {
+    const getSellers = async () => {
+      const res = await Get(`/customer/orders/${id}`);
+      console.log(res);
+      setProducts(res.products);
+      setTotal(res.totalPrice);
+    };
+    getSellers();
+  }, []);
   console.log(setTotal);
   return (
     <>
       <NavBar />
       <h1>Detalhes do Pedido</h1>
       <div>
-        <div>
-          <p>
-            PEDIDO
-            {' '}
-            {profile.pedido}
-          </p>
-          <p>
-            P. Vend:
-            {' '}
-            {profile.vendedor}
-          </p>
-          <p>
-            P. Vend:
-            {' '}
-            {profile.data}
-          </p>
-          <p>
-            P. Vend:
-            {' '}
-            {profile.status}
-          </p>
+        <div
+          style={ {
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '5px',
+            marginLeft: '25%',
+            marginRight: '25%',
+          } }
+        >
+          <p>Item</p>
+          <p>Descrição</p>
+          <p>Quantidade</p>
+          <p>Valor Unitário</p>
+          <p>Sub-total</p>
         </div>
+        {
+          products?.map((item, index) => (
+            <div
+              key={ index }
+            >
+              <OrderDetailsItem item={ item } index={ index } />
+            </div>
+          ))
+        }
       </div>
       <div>
-        <p>Item</p>
-        <p>Descrição</p>
-        <p>Quantidade</p>
-        <p>Valor Unitário</p>
-        <p>Sub-total</p>
-        <p>Remover Item</p>
+        <p
+          data-testid="customer_order_details__element-order-total-price"
+        >
+          Total: R$
+          {' '}
+          {total}
+        </p>
       </div>
-      {products.map((item, index) => (
-        <ItemPedido key={ index } item={ item } index={ index } />
-      ))}
-      <Total total={ total } />
     </>
   );
 }
