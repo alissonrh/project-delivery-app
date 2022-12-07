@@ -22,3 +22,28 @@ const pedidos = [
 ];
 
 export default pedidos;
+
+/*
+{
+  "saleInfo": {
+    "userId": 3,
+    "sellerId": 2,
+    "deliveryAddress": "essa deu bom",
+    "deliveryNumber": "1000"
+  },
+  "sales": [
+    {
+      "productId": 2,
+      "quantity": 2
+    },
+   {
+      "productId": 3,
+      "quantity": 5
+    },
+    {
+      "productId": 6,
+      "quantity": 3
+    }
+  ]
+}
+*/
