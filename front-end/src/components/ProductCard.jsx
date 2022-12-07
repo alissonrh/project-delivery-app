@@ -7,10 +7,7 @@ function ProductCard({ id, price, urlImage, name }) {
   const [quantity, setQuantity] = useState(0);
   const [disabled, setDisabled] = useState(true);
 
-  const setLocalStorage = () => {
-    localStorage.setItem('sale', JSON.stringify(sales));
-  };
-
+  
   useEffect(() => {
     const localStorageSales = JSON.parse(localStorage.getItem('sale'));
     localStorageSales?.forEach((e) => {
@@ -36,12 +33,15 @@ function ProductCard({ id, price, urlImage, name }) {
         .filter((e) => e.quantity > 0);
       setSales(newSales);
     }
-  }, [quantity]);
+  }, [id, price, quantity, sales, setSales]);
 
   useEffect(() => {
+    const setLocalStorage = () => {
+      localStorage.setItem('sale', JSON.stringify(sales));
+    };
     setLocalStorage();
   }, [sales]);
-
+  
   return (
     <div>
       <span data-testid={ `customer_products__element-card-price-${id}` }>

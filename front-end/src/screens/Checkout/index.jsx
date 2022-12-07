@@ -4,7 +4,7 @@ import NavBar from '../../components/NavBar';
 import Select from '../../components/Select';
 import ItemPedido from '../../components/ItemPedido';
 import Total from '../../components/Total';
-import { Get, PostAuth, Post } from '../../api/requests';
+import { Get, Post } from '../../api/requests';
 
 export default function Checkout() {
   const [products, setProducts] = useState([]);
@@ -21,6 +21,7 @@ export default function Checkout() {
       setSellers(res);
     };
     getSellers();
+    setTotal(2);
   }, []);
   useEffect(() => {
     const getProducts = () => {
