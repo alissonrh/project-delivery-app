@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Post, setToken } from '../../api/requests';
 import EmailInput from '../../components/EmailInput';
 import NameInput from '../../components/NameInput';
@@ -7,11 +7,11 @@ import PasswordInput from '../../components/PasswordInput';
 import LoginContext from '../../context/LoginContext';
 
 function Register() {
-  const { email, setEmail, password, setPassword,
-    isLogged, setIsLogged } = useContext(LoginContext);
+  const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [name, setName] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const navigate = useNavigate();
 
   const createUser = async (event) => {
     event.preventDefault();
@@ -22,11 +22,9 @@ function Register() {
       setToken(user.token);
 
       localStorage.setItem('user', JSON.stringify(user));
-
-      setIsLogged(true);
+      navigate('/customer/products');
     } catch (error) {
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
   };
 
@@ -37,8 +35,6 @@ function Register() {
       setDisabled(true);
     }
   }, [email, password, name]);
-
-  if (isLogged) return <Navigate to="/customer/products" />;
 
   return (
     <>

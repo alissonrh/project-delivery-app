@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { Get } from '../../api/requests';
 import OrderDetailsItem from '../../components/OrderDetailsItem';
+import HeaderOrdersDetail from '../../components/HeaderOrdersDetail';
 
 /* const status = {
   0: 'Pendente',
@@ -13,9 +14,9 @@ import OrderDetailsItem from '../../components/OrderDetailsItem';
 
 export default function DetailsOrder() {
   const [products, setProducts] = useState();
-  const [total, setTotal] = useState(0.00);
+  const [total, setTotal] = useState('0.00');
+  const [order, setOrder] = useState({});
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     const getSellers = async () => {
@@ -23,15 +24,21 @@ export default function DetailsOrder() {
       console.log(res);
       setProducts(res.products);
       setTotal(res.totalPrice);
+      setOrder(res);
     };
     getSellers();
   }, []);
-  console.log(setTotal);
   return (
     <>
       <NavBar />
       <h1>Detalhes do Pedido</h1>
       <div>
+        <HeaderOrdersDetail
+          id={ order.id }
+          sellerName={ order.sellerName }
+          saleDate={ order.saleDate }
+          status={ order.status }
+        />
         <div
           style={ {
             display: 'flex',
@@ -63,7 +70,7 @@ export default function DetailsOrder() {
         >
           Total: R$
           {' '}
-          {total}
+          {total.replace(/\./, ',')}
         </p>
       </div>
     </>
