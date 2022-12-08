@@ -38,7 +38,7 @@ function OrderCard({ id, status, saleDate, totalPrice, rote }) {
         <div
           data-testid={ `${rote}_orders__element-order-date-${id}` }
         >
-          {new Date(saleDate).toLocaleString().slice(0, DEZ)}
+          {new Date(saleDate).toLocaleDateString('pt-BR').slice(0, DEZ)}
         </div>
         <span
           data-testid={ `${rote}_orders__element-card-price-${id}` }

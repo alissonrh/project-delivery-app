@@ -20,6 +20,12 @@ export const GetId = async (endpoint, body) => {
   return data;
 };
 
+export const Put = async (endpoint, body) => {
+  console.log('ENTROU AQUI', endpoint, body);
+  const { data } = await api.put(endpoint, body);
+  return data;
+};
+
 export const Post = async (endpoint, body) => {
   const { data } = await api.post(endpoint, body);
   return data;

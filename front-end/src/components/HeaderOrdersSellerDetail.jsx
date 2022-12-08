@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import StatusContext from '../context/StatusContext';
 
-function HeaderOrdersSellerDetail({ id, saleDate, status }) {
+function HeaderOrdersSellerDetail({ id, saleDate, statusDb }) {
   const DEZ = 10;
+  const { status, setStatus } = useContext(StatusContext);
   return (
     <header>
       <div
@@ -21,16 +23,19 @@ function HeaderOrdersSellerDetail({ id, saleDate, status }) {
       <div
         data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
-        {status}
+        {statusDb}
       </div>
       <button
+        disabled={ status === 'Preparando' || status === 'Em Trânsito' }
+        onClick={ () => setStatus('Preparando') }
         data-testid="seller_order_details__button-preparing-check"
         type="button"
       >
         PREPARAR PEDIDO
       </button>
       <button
-        disabled
+        disabled={ (status !== 'Preparando') }
+        onClick={ () => setStatus('Em Trânsito') }
         data-testid="seller_order_details__button-dispatch-check"
         type="button"
       >

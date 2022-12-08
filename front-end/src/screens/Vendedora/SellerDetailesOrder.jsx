@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Get } from '../../api/requests';
 import OrderDetailsItem from '../../components/OrderDetailsItem';
 import NavBarSeller from '../../components/NavBarSeller';
 import HeaderOrdersSellerDetail from '../../components/HeaderOrdersSellerDetail';
+import StatusContext from '../../context/StatusContext';
 
 export default function SellerDetailsOrder() {
+  const { setIdOrder, setStatus } = useContext(StatusContext);
   const [products, setProducts] = useState();
   const [total, setTotal] = useState('0.00');
   const [order, setOrder] = useState({});
-  const [status, setStatus] = useState('');
   const { id } = useParams();
 
   useEffect(() => {
@@ -21,6 +22,7 @@ export default function SellerDetailsOrder() {
       setOrder(res);
     };
     getSellers();
+    setIdOrder(id);
   }, []);
   return (
     <>
@@ -30,7 +32,7 @@ export default function SellerDetailsOrder() {
         <HeaderOrdersSellerDetail
           id={ order.id }
           saleDate={ order.saleDate }
-          status={ status }
+          statusDb={ order.status }
         />
         <div
           style={ {

@@ -11,6 +11,7 @@ import Login from './screens/Comum/Login';
 import Register from './screens/Comum/Register';
 import SellerOrders from './screens/Vendedora/SellerOrders';
 import SellerDetailsOrder from './screens/Vendedora/SellerDetailesOrder';
+import StatusProvider from './context/StatusProvider';
 
 function App() {
   return (
@@ -78,7 +79,9 @@ function App() {
         element={
           <ProductsProvider>
             <LoginProvider>
-              <SellerOrders />
+              <StatusProvider>
+                <SellerOrders />
+              </StatusProvider>
             </LoginProvider>
           </ProductsProvider>
         }
@@ -87,7 +90,10 @@ function App() {
         path="/seller/orders/:id"
         element={
           <LoginProvider>
-            <SellerDetailsOrder />
+
+            <StatusProvider>
+              <SellerDetailsOrder />
+            </StatusProvider>
           </LoginProvider>
         }
       />
