@@ -5,14 +5,15 @@ import OrderCard from '../../components/OrderCard';
 
 function SellerOrders() {
   const [orders, setOrders] = useState([]);
-  const getProducts = async (userId) => {
-    setOrders(await GetId('seller/orders', { userId }));
+  const getProducts = async (sellerId) => {
+    setOrders(await GetId('seller/orders', { sellerId }));
   };
 
   useEffect(() => {
-    const userId = JSON.parse(localStorage.getItem('user')).id;
-    getProducts(userId);
+    const sellerId = JSON.parse(localStorage.getItem('user')).id;
+    getProducts(sellerId);
   }, []);
+
   return (
     <div>
       <NavBarSeller />

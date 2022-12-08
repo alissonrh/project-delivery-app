@@ -13,14 +13,14 @@ function NavBarSeller() {
   }, []);
 
   return (
-    <header style={ { backgroundColor: 'blue' } }>
+    <header style={ { backgroundColor: 'green' } }>
       <nav>
         <button
           type="button"
-          onClick={ () => navigate('/customer/orders') }
+          onClick={ () => navigate('/seller/orders') }
           data-testid="customer_products__element-navbar-link-orders"
         >
-          MEUS PEDIDOS
+          PEDIDOS
 
         </button>
         <p
