@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { Post, setToken } from '../../api/requests';
 import EmailInput from '../../components/EmailInput';
 import PasswordInput from '../../components/PasswordInput';
@@ -9,6 +9,8 @@ function Login() {
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [disabled, setDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const isLogged = JSON.parse(localStorage.getItem('user'));
+  console.log('isLogged', isLogged);
   const navigate = useNavigate();
 
   const doLogin = async (event) => {
@@ -19,7 +21,7 @@ function Login() {
       setToken(user.token);
       localStorage.setItem('user', JSON.stringify(user));
       if (user.role === 'customer') return navigate('/customer/products');
-      if (user.role === 'seller') return navigate('/customer/seller');
+      if (user.role === 'seller') return navigate('/seller/orders');
     } catch (error) {
       setFailedTryLogin(true);
     }
@@ -35,7 +37,7 @@ function Login() {
     } setDisabled(true);
   }, [email, password]);
 
-  /* if (isLogged) return <Navigate to="/customer/products" />; */
+  if (isLogged) return <Navigate to="/customer/products" />;
 
   return (
     <form>

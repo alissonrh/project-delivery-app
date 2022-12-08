@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export default function OrderDetailsItem({ item, index }) {
+export default function OrderDetailsItem({ item, index, rote }) {
   const { quantity, price, name } = item;
   return (
     <div
@@ -14,32 +14,32 @@ export default function OrderDetailsItem({ item, index }) {
       key={ index }
     >
       <p
-        data-testid={ `customer_order_details__element-order-table-item-number-${index}` }
+        data-testid={ `${rote}_order_details__element-order-table-item-number-${index}` }
       >
         {index + 1}
 
       </p>
       <p
-        data-testid={ `customer_order_details__element-order-table-name-${index}` }
+        data-testid={ `${rote}_order_details__element-order-table-name-${index}` }
       >
         {name}
 
       </p>
       <p
-        data-testid={ `customer_order_details__element-order-table-quantity-${index}` }
+        data-testid={ `${rote}_order_details__element-order-table-quantity-${index}` }
       >
         {quantity}
 
       </p>
       <p
-        data-testid={ `customer_order_details__element-order-table-unit-price-${index}` }
+        data-testid={ `${rote}_order_details__element-order-table-unit-price-${index}` }
       >
         R$:
         {' '}
         {price.replace('.', ',')}
       </p>
       <p
-        data-testid={ `customer_order_details__element-order-table-sub-total-${index}` }
+        data-testid={ `${rote}_order_details__element-order-table-sub-total-${index}` }
       >
         R$:
         {' '}
@@ -56,4 +56,5 @@ OrderDetailsItem.propTypes = {
     price: PropTypes.string,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  rote: PropTypes.string.isRequired,
 };
