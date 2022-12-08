@@ -6,10 +6,11 @@ const chaiHttp = require('chai-http');
 
 const { Product, Sale, SaleProduct, User } = require('../../database/models');
 const app = require('../../api/app');
-const { allProducts, allSellers, newSale, missingUserIdSale, orderId } = require('./mocks/customer.mock');
+const { allProducts, allSellers, newSale, missingUserIdSale, orderId, updateSaleStatusMock } = require('./mocks/customer.mock');
 const { tokenMock, tokenPayloadMock } = require('./mocks/token.mock');
 const { newSaleDbMock, newSaleProductDbMock, saleByIdDbMock } = require('./mocks/db.mock');
 const { sequelize } = require('../../api/Services/saleService');
+const { invalidStatusMessage, invalidUserIdMessage } = require('./mocks/joi.mock');
 
 chai.use(chaiHttp);
 
@@ -69,7 +70,7 @@ describe('Testing /customer route', () => {
 
   describe('Testing POST /customer/checkout route', () => {
     it('Testing sale creation when succeeds', async () => {
-      sinon.stub(sequelize, 'transaction');
+      sinon.stub(sequelize, 'transaction').resolves({ commit: () => { } });
       sinon.stub(Product, 'findOne').resolves(allProducts[0]);
       sinon.stub(Sale, 'create').resolves(newSaleDbMock);
       sinon.stub(SaleProduct, 'create').resolves(newSaleProductDbMock);
@@ -145,6 +146,90 @@ describe('Testing /customer route', () => {
 
       expect(chaiHttpResponse.status).to.be.equal(200);
       expect(chaiHttpResponse.body).to.be.deep.equal(orderId);
+    });
+
+    it('Unexpected error', async () => {
+      const error = new Error('Internal error');
+      sinon.stub(Sale, 'findOne').throws(error);
+
+      const chaiHttpResponse = await chai
+        .request(app)
+        .get('/customer/orders/1');
+
+      expect(chaiHttpResponse.status).to.be.equal(500);
+      expect(chaiHttpResponse.body.message).to.be.equal('Internal error');
+    });
+  });
+
+  describe('Testing PUT /customer/orders/:id route', () => {
+    it('Testing sale status update when succeeds', async () => {
+      sinon.stub(Sale, 'findByPk').resolves(newSaleDbMock);
+      sinon.stub(Sale, 'update').resolves({});
+
+      const chaiHttpResponse = await chai
+        .request(app)
+        .put('/customer/orders/1')
+        .send(updateSaleStatusMock);
+
+      expect(chaiHttpResponse.status).to.be.equal(200);
+      expect(chaiHttpResponse.body).to.be.deep.equal('Status updated');
+    });
+    it('Testing sale status update when sale not found', async () => {
+      sinon.stub(Sale, 'findByPk').resolves(null);
+
+      const chaiHttpResponse = await chai
+        .request(app)
+        .put('/customer/orders/9999')
+        .send(updateSaleStatusMock);
+
+      expect(chaiHttpResponse.status).to.be.equal(404);
+      expect(chaiHttpResponse.body.message).to.be.equal('Sale not found');
+    });
+    it('Testing with invalid status', async () => {
+      const chaiHttpResponse = await chai
+        .request(app)
+        .put('/customer/orders/9999')
+        .send({ status: 'Any_status' });
+
+      expect(chaiHttpResponse.status).to.be.equal(401);
+      expect(chaiHttpResponse.body.message).to.be.equal(invalidStatusMessage);
+    })
+  });
+
+  describe('Testing POST /customer/orders route', () => {
+    it('Get sale by user id when succeeds', async () => {
+      sinon.stub(Sale, 'findAll').resolves([newSaleDbMock.dataValues]);
+
+      const chaiHttpResponse = await chai
+        .request(app)
+        .post('/customer/orders')
+        .send({ userId: 3 });
+
+      expect(chaiHttpResponse.status).to.be.equal(200);
+      expect(chaiHttpResponse.body).to.be.deep.equal([newSaleDbMock.dataValues]);
+    });
+
+    it('Unexpected error', async () => {
+      const error = new Error('Internal error');
+      sinon.stub(Sale, 'findAll').throws(error);
+
+      const chaiHttpResponse = await chai
+        .request(app)
+        .post('/customer/orders')
+        .send({ userId: 999 });
+
+      expect(chaiHttpResponse.status).to.be.equal(500);
+      expect(chaiHttpResponse.body.message).to.be.equal('Internal error');
+    });
+
+    it('Testing when send the wrong body', async () => {
+      const chaiHttpResponse = await chai
+        .request(app)
+        .post('/customer/orders')
+        .send({ userId: 'Three' });
+
+      expect(chaiHttpResponse.status).to.be.equal(401);
+      expect(chaiHttpResponse.body.message).to.be.deep.equal(invalidUserIdMessage);
     });
   });
 });
