@@ -9,6 +9,8 @@ import MyOrders from './screens/MyOrders';
 
 import Login from './screens/Comum/Login';
 import Register from './screens/Comum/Register';
+import SellerOrders from './screens/Vendedora/SellerOrders';
+import SellerDetailsOrder from './screens/Vendedora/SellerDetailesOrder';
 
 function App() {
   return (
@@ -35,6 +37,7 @@ function App() {
             <Login />
           </LoginProvider>
         }
+
       />
       <Route
         path="/customer/products"
@@ -67,6 +70,24 @@ function App() {
         element={
           <LoginProvider>
             <DetailsOrder />
+          </LoginProvider>
+        }
+      />
+      <Route
+        path="/seller/orders"
+        element={
+          <ProductsProvider>
+            <LoginProvider>
+              <SellerOrders />
+            </LoginProvider>
+          </ProductsProvider>
+        }
+      />
+      <Route
+        path="/seller/orders/:id"
+        element={
+          <LoginProvider>
+            <SellerDetailsOrder />
           </LoginProvider>
         }
       />

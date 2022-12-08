@@ -14,11 +14,13 @@ export default function MyOrders() {
     console.log({ userId });
     getProducts(userId);
   }, []);
+
   return (
     <div>
       <NavBar />
       {orders?.map((e) => (
         <OrderCard
+          rote="customer"
           key={ e.id }
           id={ e.id }
           status={ e.status }

@@ -1,36 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import NavBar from '../../components/NavBar';
 import { Get } from '../../api/requests';
 import OrderDetailsItem from '../../components/OrderDetailsItem';
-import HeaderOrdersDetail from '../../components/HeaderOrdersDetail';
+import NavBarSeller from '../../components/NavBarSeller';
+import HeaderOrdersSellerDetail from '../../components/HeaderOrdersSellerDetail';
 
-export default function DetailsOrder() {
+export default function SellerDetailsOrder() {
   const [products, setProducts] = useState();
   const [total, setTotal] = useState('0.00');
   const [order, setOrder] = useState({});
+  const [status, setStatus] = useState('');
   const { id } = useParams();
 
   useEffect(() => {
     const getSellers = async () => {
-      const res = await Get(`/customer/orders/${id}`);
-      console.log(res);
+      const res = await Get(`/seller/orders/${id}`);
       setProducts(res.products);
       setTotal(res.totalPrice);
+      setStatus(res.status);
       setOrder(res);
     };
     getSellers();
   }, []);
   return (
     <>
-      <NavBar />
+      <NavBarSeller />
       <h1>Detalhes do Pedido</h1>
       <div>
-        <HeaderOrdersDetail
+        <HeaderOrdersSellerDetail
           id={ order.id }
-          sellerName={ order.sellerName }
           saleDate={ order.saleDate }
-          status={ order.status }
+          status={ status }
         />
         <div
           style={ {
@@ -52,14 +52,14 @@ export default function DetailsOrder() {
             <div
               key={ index }
             >
-              <OrderDetailsItem rote="customer" item={ item } index={ index } />
+              <OrderDetailsItem rote="seller" item={ item } index={ index } />
             </div>
           ))
         }
       </div>
       <div>
         <p
-          data-testid="customer_order_details__element-order-total-price"
+          data-testid="seller_order_details__element-order-total-price"
         >
           Total: R$
           {' '}
