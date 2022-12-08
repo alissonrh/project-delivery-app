@@ -13,6 +13,7 @@ import SellerOrders from './screens/Vendedora/SellerOrders';
 import SellerDetailsOrder from './screens/Vendedora/SellerDetailesOrder';
 import StatusProvider from './context/StatusProvider';
 
+
 function App() {
   return (
     <Routes>
@@ -90,6 +91,7 @@ function App() {
         path="/seller/orders/:id"
         element={
           <LoginProvider>
+
             <StatusProvider>
               <SellerDetailsOrder />
             </StatusProvider>

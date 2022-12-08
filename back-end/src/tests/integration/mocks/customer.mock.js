@@ -19,7 +19,6 @@ const newSale = {
 
 const missingUserIdSale = {
   "saleInfo": {
-    // "userId": 3,
     "sellerId": 2,
     "deliveryAddress": "essa também deu bom",
     "deliveryNumber": "1100"
@@ -61,7 +60,7 @@ const allProducts = [
     name: 'Antarctica Pilsen 300ml',
     price: 2.49,
     url_image: 'http://localhost:3001/images/antarctica_pilsen_300ml.jpg',
-  }, 
+  },
 ];
 
 const orderId = {
@@ -94,10 +93,13 @@ const orderId = {
   "sellerName": "Fulana Pereira",
 }
 
+const updateSaleStatusMock = { status: 'Entregue' };
+
 module.exports = {
   newSale,
   missingUserIdSale,
   allSellers,
   allProducts,
   orderId,
+  updateSaleStatusMock,
 }

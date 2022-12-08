@@ -11,8 +11,8 @@ const adminCreateUser = async (req, res, next) => {
 
 const adminDeleteUser = async (req, res, next) => {
   try {
-    const deleteMessage = await adminService.adminDeleteUser(req.params.id);
-    res.status(204).json(deleteMessage);
+    await adminService.adminDeleteUser(req.params.id);
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }

@@ -38,7 +38,6 @@ function HeaderOrdersSellerDetail({ id, saleDate, statusDb }) {
         onClick={ () => setStatus('Em Trânsito') }
         data-testid="seller_order_details__button-dispatch-check"
         type="button"
-
       >
         SAIU PARA ENTREGA
       </button>
