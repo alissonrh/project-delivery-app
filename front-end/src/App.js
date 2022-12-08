@@ -90,7 +90,6 @@ function App() {
         path="/seller/orders/:id"
         element={
           <LoginProvider>
-
             <StatusProvider>
               <SellerDetailsOrder />
             </StatusProvider>

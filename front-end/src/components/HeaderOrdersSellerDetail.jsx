@@ -17,7 +17,7 @@ function HeaderOrdersSellerDetail({ id, saleDate, statusDb }) {
       <div
         data-testid="seller_order_details__element-order-details-label-order-date"
       >
-        {new Date(saleDate).toLocaleString().slice(0, DEZ)}
+        {new Date(saleDate).toLocaleDateString('pt-BR').slice(0, DEZ)}
 
       </div>
       <div
