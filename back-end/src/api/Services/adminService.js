@@ -18,9 +18,8 @@ async function adminDeleteUser(id) {
   const user = await User.findOne({ where: { id } });
   if (!user) throw new CustomError('User not found', 404);
   if (user.role === 'administrator') throw new CustomError('Forbidden', 403);
-  
+
   await User.destroy({ where: { id } });
-  return 'User deleted';
 }
 
 async function findlAllUsers() {

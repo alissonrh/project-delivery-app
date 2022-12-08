@@ -3,13 +3,12 @@ module.exports = (sequelize, DataTypes) => {
     saleId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      // autoIncrement: true,
       allowNull: false,
     },
     productId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      // autoIncrement: true,
+
       allowNull: false,
     },
     quantity: DataTypes.INTEGER,

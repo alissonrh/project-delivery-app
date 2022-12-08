@@ -7,6 +7,15 @@ const newUserDbMock = {
   },
 }
 
+const userAdminDbMock = {
+  dataValues: {
+    id: 6,
+    name: 'New client user',
+    email: 'user@email.com',
+    role: 'administrator',
+  },
+}
+
 const newSaleDbMock = {
   dataValues: {
     "id": 1,
@@ -73,4 +82,5 @@ module.exports = {
   newUserDbMock,
   newSaleProductDbMock,
   saleByIdDbMock,
+  userAdminDbMock,
 }
