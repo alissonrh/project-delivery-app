@@ -9,22 +9,21 @@ const env = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[env]);
 
 async function createSale({ sales, saleInfo }) {
+  const t = await sequelize.transaction();
   try {
-    const saleId = await sequelize.transaction(async (t) => {
-      const prices = await Promise.all(sales.map(async ({ productId, quantity }) => {
-        const product = await Product.findOne({ where: { id: productId } });
-        return product.price * quantity;
-      }));
-      const sale = await Sale.create({ ...saleInfo, totalPrice: totalPriceCalculator(prices) },
-        { transaction: t });
-      await Promise.all(sales.map(async ({ productId, quantity }) => SaleProduct.create(
-        { saleId: sale.id, productId, quantity }, { transaction: t },
-      )));
-      return sale.dataValues.id;
-    });
-    return { saleId };
+    const prices = await Promise.all(sales.map(async ({ productId, quantity }) => {
+      const product = await Product.findOne({ where: { id: productId } }, { transaction: t });
+      return product.price * quantity;
+    }));
+    const sale = await Sale.create({ ...saleInfo, totalPrice: totalPriceCalculator(prices) },
+      { transaction: t });
+    await Promise.all(sales.map(async ({ productId, quantity }) => SaleProduct.create(
+      { saleId: sale.id, productId, quantity }, { transaction: t },
+    )));
+    return { saleId: sale.dataValues.id };
   } catch (error) {
-    throw new CustomError('Ops! Something went wrong', 404);
+    await t.rollback();
+    throw new CustomError('Ops! Something went wrong', 500);
   }
 }
 
@@ -38,7 +37,6 @@ async function findSaleByPk(id) {
   });
   const { seller, ...order } = orderById.dataValues;
   const purchaseInfo = { ...order, sellerName: seller.name };
-
   const products = purchaseInfo.products.map(({ dataValues }) => {
     const product = { ...dataValues };
     const { SaleProduct: { quantity } } = product;
@@ -73,4 +71,5 @@ module.exports = {
   findAllUserSales,
   findAllSellerSales,
   updateSale,
+  sequelize,
 };
