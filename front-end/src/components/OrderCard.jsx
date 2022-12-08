@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-function OrderCard({ id, status, saleDate, totalPrice }) {
+function OrderCard({ id, status, saleDate, totalPrice, rote }) {
   const DEZ = 10;
   const navigate = useNavigate();
   return (
@@ -13,7 +13,7 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
         margin: '5px',
       } }
       type="button"
-      onClick={ () => navigate(`/customer/orders/${id}`) }
+      onClick={ () => navigate(`/${rote}/orders/${id}`) }
     >
       <article
         style={ {
@@ -26,22 +26,22 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
         key={ id }
       >
         <span
-          data-testid={ `customer_orders__element-order-id-${id}` }
+          data-testid={ `${rote}_orders__element-order-id-${id}` }
         >
           {`Pedido ${id}`}
         </span>
         <div
-          data-testid={ `customer_orders__element-delivery-status-${id}` }
+          data-testid={ `${rote}_orders__element-delivery-status-${id}` }
         >
           {status}
         </div>
         <div
-          data-testid={ `customer_orders__element-order-date-${id}` }
+          data-testid={ `${rote}_orders__element-order-date-${id}` }
         >
           {new Date(saleDate).toLocaleString().slice(0, DEZ)}
         </div>
         <span
-          data-testid={ `customer_orders__element-card-price-${id}` }
+          data-testid={ `${rote}_orders__element-card-price-${id}` }
         >
           Total: R$
           {' '}
@@ -60,4 +60,5 @@ OrderCard.propTypes = {
   status: PropTypes.string,
   saleDate: PropTypes.string,
   totalPrice: PropTypes.string,
+  rote: PropTypes.string,
 }.isRequired;

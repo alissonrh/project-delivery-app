@@ -19,7 +19,7 @@ function Login() {
       setToken(user.token);
       localStorage.setItem('user', JSON.stringify(user));
       if (user.role === 'customer') return navigate('/customer/products');
-      if (user.role === 'seller') return navigate('/customer/seller');
+      if (user.role === 'seller') return navigate('/seller/orders');
     } catch (error) {
       setFailedTryLogin(true);
     }

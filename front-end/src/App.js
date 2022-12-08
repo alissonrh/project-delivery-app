@@ -70,6 +70,16 @@ function App() {
           </LoginProvider>
         }
       />
+      <Route
+        path="/seller/orders"
+        element={
+          <ProductsProvider>
+            <LoginProvider>
+              <Products />
+            </LoginProvider>
+          </ProductsProvider>
+        }
+      />
     </Routes>
   );
 }
