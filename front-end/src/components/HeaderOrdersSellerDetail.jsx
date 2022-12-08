@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import StatusContext from '../context/StatusContext';
 
-function HeaderOrdersSellerDetail({ id, saleDate, statusDb }) {
+function HeaderOrdersSellerDetail({ id, saleDate }) {
   const DEZ = 10;
   const { status, setStatus } = useContext(StatusContext);
   return (
@@ -17,16 +17,17 @@ function HeaderOrdersSellerDetail({ id, saleDate, statusDb }) {
       <div
         data-testid="seller_order_details__element-order-details-label-order-date"
       >
-        {new Date(saleDate).toLocaleString().slice(0, DEZ)}
+        {new Date(saleDate).toLocaleDateString('pt-BR').slice(0, DEZ)}
 
       </div>
       <div
         data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
-        {statusDb}
+        {status}
       </div>
       <button
-        disabled={ status === 'Preparando' || status === 'Em Trânsito' }
+        disabled={ status === 'Preparando' || status === 'Em Trânsito'
+        || status === 'Entregue' }
         onClick={ () => setStatus('Preparando') }
         data-testid="seller_order_details__button-preparing-check"
         type="button"

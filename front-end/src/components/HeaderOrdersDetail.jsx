@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import StatusContext from '../context/StatusContext';
 
-function HeaderOrdersDetail({ id, sellerName, saleDate, status }) {
+function HeaderOrdersDetail({ id, sellerName, saleDate }) {
   const DEZ = 10;
+  const { status, setStatus } = useContext(StatusContext);
   return (
     <header>
       <div
@@ -20,7 +22,7 @@ function HeaderOrdersDetail({ id, sellerName, saleDate, status }) {
       <div
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        {new Date(saleDate).toLocaleString().slice(0, DEZ)}
+        {new Date(saleDate).toLocaleDateString('pt-BR').slice(0, DEZ)}
 
       </div>
       <div
@@ -29,7 +31,8 @@ function HeaderOrdersDetail({ id, sellerName, saleDate, status }) {
         {status}
       </div>
       <button
-        disabled
+        disabled={ (status !== 'Em Trânsito') }
+        onClick={ () => setStatus('Entregue') }
         data-testid="customer_order_details__button-delivery-check"
         type="button"
       >

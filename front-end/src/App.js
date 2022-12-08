@@ -62,7 +62,9 @@ function App() {
         path="/customer/orders"
         element={
           <LoginProvider>
-            <MyOrders />
+            <StatusProvider>
+              <MyOrders />
+            </StatusProvider>
           </LoginProvider>
         }
       />
@@ -70,7 +72,9 @@ function App() {
         path="/customer/orders/:id"
         element={
           <LoginProvider>
-            <DetailsOrder />
+            <StatusProvider>
+              <DetailsOrder />
+            </StatusProvider>
           </LoginProvider>
         }
       />
@@ -90,7 +94,6 @@ function App() {
         path="/seller/orders/:id"
         element={
           <LoginProvider>
-
             <StatusProvider>
               <SellerDetailsOrder />
             </StatusProvider>
