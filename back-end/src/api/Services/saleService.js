@@ -20,6 +20,7 @@ async function createSale({ sales, saleInfo }) {
     await Promise.all(sales.map(async ({ productId, quantity }) => SaleProduct.create(
       { saleId: sale.id, productId, quantity }, { transaction: t },
     )));
+    await t.commit();
     return { saleId: sale.dataValues.id };
   } catch (error) {
     await t.rollback();
