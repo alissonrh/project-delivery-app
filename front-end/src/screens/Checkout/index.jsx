@@ -4,7 +4,7 @@ import NavBar from '../../components/NavBar';
 import Select from '../../components/Select';
 import ItemPedido from '../../components/ItemPedido';
 import Total from '../../components/Total';
-import { Get, Post } from '../../api/requests';
+import { Get, PostAuth } from '../../api/requests';
 
 export default function Checkout() {
   const [products, setProducts] = useState([]);
@@ -14,7 +14,22 @@ export default function Checkout() {
   const [sellerId, setSellerId] = useState(0);
   const [deliveryAddress, setAdress] = useState('');
   const [deliveryNumber, setNumber] = useState('');
-  const RESPONSE_STATUS = 201;
+  const [disabled, setDisabled] = useState(true);
+
+  const totalValue = () => {
+    const totalValueProducts = products.reduce((acc, product) => (
+      acc + (product.quantity * product.unitPrice)
+    ), 0);
+    setTotal(totalValueProducts);
+  };
+
+  useEffect(() => {
+    if (products <= 0 || deliveryNumber === '' || deliveryAddress === '') {
+      return setDisabled(true);
+    }
+    return setDisabled(false);
+  }, [products, deliveryNumber, deliveryAddress]);
+
   useEffect(() => {
     const getSellers = async () => {
       const res = await Get('/customer/checkout');
@@ -22,6 +37,7 @@ export default function Checkout() {
     };
     getSellers();
   }, []);
+
   useEffect(() => {
     const getProducts = () => {
       const productsStorage = JSON.parse(localStorage.getItem('sale'));
@@ -31,16 +47,12 @@ export default function Checkout() {
     };
     getProducts();
   }, []);
+
   const navigator = useNavigate();
+
   useEffect(() => {
-    const totalValue = () => {
-      const totalValueProducts = products.reduce((acc, product) => {
-        const totalValueProduct = product.price * product.quantity;
-        return acc + totalValueProduct;
-      }, 0);
-      setTotal(totalValueProducts);
-    };
     totalValue();
+    localStorage.setItem('sale', JSON.stringify(products));
   }, [products]);
 
   const handleSubmit = async () => {
@@ -58,10 +70,9 @@ export default function Checkout() {
         },
         sales: newProduct,
       };
-      const res = await Post('/customer/checkout', reqBody);
-      if (res.status === RESPONSE_STATUS) {
-        navigator(`/customer/orders/${res.saleId}`);
-      }
+      const res = await PostAuth('/customer/checkout', reqBody, user.token);
+      localStorage.setItem('sale', JSON.stringify([]));
+      navigator(`/customer/orders/${res.saleId}`);
     } catch (e) {
       console.log(e);
     }
@@ -71,44 +82,55 @@ export default function Checkout() {
       <NavBar />
       <h1>Finalizar Pedido</h1>
       <div>
-        <p>Item</p>
-        <p>Descrição</p>
-        <p>Quantidade</p>
-        <p>Valor Unitário</p>
-        <p>Sub-total</p>
-        <p>Remover Item</p>
-      </div>
-      <div>
-        {products.map((item, index) => (
-          <button
-            key={ index }
-            data-testids={ `element-order-table-name-${index}` }
-            onClick={ () => navigator(`/customer/orders/${index}`) }
-            type="button"
-          >
-            <ItemPedido item={ item } index={ index } />
-            <button
-              onClick={ () => setProducts(products
-                .filter((product) => product !== item)) }
-              type="button"
+        <div
+          style={ {
+            display: 'flex',
+            justifyContent: 'space-between',
+            padding: '5px',
+            marginLeft: '25%',
+            marginRight: '25%',
+          } }
+        >
+          <p>Item</p>
+          <p>Descrição</p>
+          <p>Quantidade</p>
+          <p>Valor Unitário</p>
+          <p>Sub-total</p>
+        </div>
+        {
+          products.map((item, index) => (
+            <div
+              key={ index }
             >
-              Remover item
-
-            </button>
-          </button>
-        ))}
+              <ItemPedido item={ item } index={ index } />
+              <button
+                onClick={ () => setProducts(products
+                  .filter((product) => product !== item)) }
+                type="button"
+                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+              >
+                Remover item
+              </button>
+            </div>
+          ))
+        }
       </div>
       <Total total={ total } />
       <h1>Detalhes e Endereços para Entrega</h1>
       <div>
         <div>
           <div>
-            <h3>P. Vendedora Responsável:</h3>
-            <Select sellers={ sellers } setSellerId={ setSellerId } />
+            <h3>
+              P. Vendedora Responsável:
+
+            </h3>
+            {sellers.length > 0
+              ? <Select sellers={ sellers } setSellerId={ setSellerId } /> : null}
           </div>
           <div>
             <h3>Endereço</h3>
             <input
+              data-testid="customer_checkout__input-address"
               value={ deliveryAddress }
               onChange={ (e) => setAdress(e.target.value) }
               type="text"
@@ -117,6 +139,7 @@ export default function Checkout() {
           </div>
           <div>
             <input
+              data-testid="customer_checkout__input-address-number"
               value={ deliveryNumber }
               onChange={ (e) => setNumber(e.target.value) }
               type="text"
@@ -125,8 +148,10 @@ export default function Checkout() {
           </div>
         </div>
         <button
+          data-testid="customer_checkout__button-submit-order"
+          type="button"
           onClick={ () => handleSubmit() }
-          type="submit"
+          disabled={ disabled }
         >
           Finalizar Pedido
         </button>

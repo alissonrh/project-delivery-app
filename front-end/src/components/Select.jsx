@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 
 export default function Select({ sellers, setSellerId }) {
   return (
-    <select>
+    <select
+      data-testid="customer_checkout__select-seller"
+    >
       {sellers.map((seller, index) => (
         <option
           onChange={ setSellerId(seller.id) }
