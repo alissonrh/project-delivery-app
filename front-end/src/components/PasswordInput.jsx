@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MIN_SENHA = 6;
-
-function PasswordInput({ setPassword, dataTestid }) {
+function PasswordInput({ setPassword, dataTestid, passwordform }) {
   const handlePassword = (value) => {
-    if (value.length >= MIN_SENHA) {
+    setPassword(value);
+    /*  if (value.length >= MIN_SENHA) {
       setPassword(value);
-    } else {
-      setPassword(null);
-    }
+    } */ /* else {
+      setPassword(undefined);
+    } */
   };
 
   return (
     <label htmlFor="password">
       Senha
       <input
+        value={ passwordform }
         data-testid={ dataTestid }
         type="password"
         id="password"

@@ -31,6 +31,11 @@ export const Post = async (endpoint, body) => {
   return data;
 };
 
+export const Delete = async (endpoint) => {
+  const { data } = await api.delete(endpoint);
+  return data;
+};
+
 export const PostAuth = async (endpoint, body, token) => {
   const { data } = await api.post(endpoint, body, {
     headers: {

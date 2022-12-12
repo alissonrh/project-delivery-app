@@ -12,6 +12,7 @@ import Register from './screens/Comum/Register';
 import SellerOrders from './screens/Vendedora/SellerOrders';
 import SellerDetailsOrder from './screens/Vendedora/SellerDetailesOrder';
 import StatusProvider from './context/StatusProvider';
+import AdmPage from './screens/Administradora/AdmPage';
 
 function App() {
   return (
@@ -97,6 +98,15 @@ function App() {
             <StatusProvider>
               <SellerDetailsOrder />
             </StatusProvider>
+          </LoginProvider>
+        }
+      />
+      AdmPage
+      <Route
+        path="/admin/manage"
+        element={
+          <LoginProvider>
+            <AdmPage />
           </LoginProvider>
         }
       />

@@ -1,19 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function EmailInput({ setEmail, dataTestid }) {
+function EmailInput({ setEmail, dataTestid, emailform }) {
   const handleEmail = (value) => {
-    if (/\S+@\S+\.\S+/.test(value)) {
+    setEmail(value);
+    /* if (/\S+@\S+\.\S+/.test(value)) {
       setEmail(value);
     } else {
-      setEmail(null);
-    }
+      setEmail(undefined);
+    } */
   };
 
   return (
     <label htmlFor="email">
       Email
       <input
+        value={ emailform }
         data-testid={ dataTestid }
         type="email"
         id="email"

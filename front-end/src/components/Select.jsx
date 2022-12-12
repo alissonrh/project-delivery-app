@@ -4,10 +4,10 @@ export default function Select({ sellers, setSellerId }) {
   return (
     <select
       data-testid="customer_checkout__select-seller"
+      onChange={ (e) => setSellerId(e.target.value) }
     >
       {sellers.map((seller, index) => (
         <option
-          onChange={ setSellerId(seller.id) }
           key={ index }
           value={ seller.id }
         >
