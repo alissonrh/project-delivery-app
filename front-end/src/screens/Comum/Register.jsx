@@ -7,6 +7,8 @@ import PasswordInput from '../../components/PasswordInput';
 import LoginContext from '../../context/LoginContext';
 
 function Register() {
+  const MIN_SENHA = 6;
+  const MIN_NOME = 12;
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [name, setName] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -28,8 +30,10 @@ function Register() {
     }
   };
 
+  const validate = () => name.length >= MIN_NOME && password.length >= MIN_SENHA && /\S+@\S+\.\S+/.test(email);
+
   useEffect(() => {
-    if (email && password && name) {
+    if (validate()) {
       setDisabled(false);
     } else {
       setDisabled(true);

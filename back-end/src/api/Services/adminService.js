@@ -4,7 +4,7 @@ const { User } = require('../../database/models');
 const CustomError = require('../Errors/CustomError');
 
 async function adminCreateUser({ name, email, password, role }) {
-  const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({ where: { [Op.or]: [{ name }, { email }] } });
   if (user) throw new CustomError('User already exist', 409);
   const hash = md5(password);
   const createdUser = await User.create(

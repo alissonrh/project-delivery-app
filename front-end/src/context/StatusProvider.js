@@ -9,7 +9,6 @@ function StatusProvider({ children }) {
 
   useEffect(() => {
     const putStatus = async () => {
-      console.log('teste', { status });
       if (status !== 'Pendente') await Put(`/seller/orders/${idOrder}`, { status });
     };
     putStatus();

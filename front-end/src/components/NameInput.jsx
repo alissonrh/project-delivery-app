@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MIN_NOME = 12;
-
-function NameInput({ setName, dataTestid }) {
+function NameInput({ setName, dataTestid, nameform }) {
   const handleName = (value) => {
-    if (value.length >= MIN_NOME) {
+    setName(value);
+    /* if (value.length >= MIN_NOME) {
       setName(value);
     } else {
-      setName(null);
-    }
+      setName(undefined);
+    } */
   };
 
   return (
     <label htmlFor="name">
       Nome
       <input
+        value={ nameform }
         data-testid={ dataTestid }
         type="text"
         id="name"

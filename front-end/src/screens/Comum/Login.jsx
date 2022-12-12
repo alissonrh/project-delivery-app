@@ -6,11 +6,11 @@ import PasswordInput from '../../components/PasswordInput';
 import LoginContext from '../../context/LoginContext';
 
 function Login() {
+  const MIN_SENHA = 6;
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [disabled, setDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const isLogged = JSON.parse(localStorage.getItem('user'));
-  console.log('isLogged', isLogged);
   const navigate = useNavigate();
 
   const doLogin = async (event) => {
@@ -19,9 +19,12 @@ function Login() {
     try {
       const user = await Post('/login', { email, password });
       setToken(user.token);
+      setPassword('');
+      setEmail('');
       localStorage.setItem('user', JSON.stringify(user));
       if (user.role === 'customer') return navigate('/customer/products');
       if (user.role === 'seller') return navigate('/seller/orders');
+      if (user.role === 'administrator') return navigate('/admin/manage');
     } catch (error) {
       setFailedTryLogin(true);
     }
@@ -31,13 +34,22 @@ function Login() {
     navigate('/register');
   };
 
+  const validate = () => password.length >= MIN_SENHA && /\S+@\S+\.\S+/.test(email);
+
   useEffect(() => {
-    if (email && password) {
+    if (validate()) {
       return setDisabled(false);
     } setDisabled(true);
   }, [email, password]);
 
-  if (isLogged) return <Navigate to="/customer/products" />;
+  if (isLogged) {
+    console.log('teste', isLogged.role);
+    if (isLogged.role === 'customer') return <Navigate to="/customer/products" />;
+    if (isLogged.role === 'seller') return <Navigate to="/seller/orders" />;
+    if (isLogged.role === 'administrator') return <Navigate to="/admin/manage" />;
+  }
+
+  if (isLogged) { return <Navigate to="/customer/products" />; }
 
   return (
     <form>
