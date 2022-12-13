@@ -5,15 +5,14 @@ import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouters';
 import MockConstants from './helpers/MockConstant';
-import { Post } from '../api/requests';
-// import api from '../api/requests';
-
-// const axios = require('axios').default;
+import { Post, Get } from '../api/requests';
+import allUsersMock from './mocks/usersMock';
 
 jest.mock('../api/requests');
 
 describe('Testing screen Login', () => {
-  aftereach(localStorage.removeItem('user'));
+  afterEach(() => { localStorage.removeItem('user'); });
+
   it('Trying to access the route /', async () => {
     // axios.get.mockImplementation(() => Promise.resolve({ data: [] }));
     const { history: { pathname } } = renderWithRouter(<App />, '/login');
@@ -106,13 +105,13 @@ describe('Testing screen Login', () => {
       expect(history.pathname).toBe('/register');
     });
   });
-  it('Login with success', async () => {
+  it('Login with customer when succeeds', async () => {
     const httpResponseMock = {
       id: 1,
       name: MockConstants.VALID_NAME,
       email: MockConstants.VALID_EMAIL,
       role: 'customer',
-      token: 'validtoken',
+      token: 'validtokencustomer',
     };
 
     Post.mockResolvedValueOnce(httpResponseMock);
@@ -131,6 +130,56 @@ describe('Testing screen Login', () => {
       expect(history.pathname).toBe('/customer/products');
     });
   });
+  it('Login with seller when succeeds', async () => {
+    const httpResponseMock = {
+      id: 1,
+      name: MockConstants.VALID_NAME,
+      email: MockConstants.VALID_EMAIL,
+      role: 'seller',
+      token: 'validtokenseller',
+    };
+
+    Post.mockResolvedValueOnce(httpResponseMock);
+
+    const { history } = renderWithRouter(<App />, '/login');
+
+    const emailInput = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
+    const passwordInput = screen.getByTestId(MockConstants.PASSWORD_TEST_ID);
+    const loginBtn = screen.getByTestId(MockConstants.BTN_TEST_ID);
+
+    userEvent.type(emailInput, MockConstants.VALID_EMAIL);
+    userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
+    userEvent.click(loginBtn);
+
+    await waitFor(() => {
+      expect(history.pathname).toBe('/seller/orders');
+    });
+  });
+  it.only('Login with administrator when succeeds', async () => {
+    const httpResponseMock = {
+      id: 1,
+      name: MockConstants.VALID_NAME,
+      email: MockConstants.VALID_EMAIL,
+      role: 'administrator',
+      token: 'validtokenadministrator',
+    };
+
+    Post.mockResolvedValueOnce(httpResponseMock);
+    Get.mockResolvedValueOnce(allUsersMock);
+
+    const { history } = renderWithRouter(<App />, '/login');
+
+    const emailInput = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
+    const passwordInput = screen.getByTestId(MockConstants.PASSWORD_TEST_ID);
+    const loginBtn = screen.getByTestId(MockConstants.BTN_TEST_ID);
+
+    userEvent.type(emailInput, MockConstants.VALID_EMAIL);
+    userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
+    userEvent.click(loginBtn);
+    await waitFor(() => {
+      expect(history.pathname).toBe('/admin/manage');
+    });
+  });
   it('The screen create a alert when user is not found', async () => {
     const httpResponseMock = {
       status: 404,
@@ -145,7 +194,7 @@ describe('Testing screen Login', () => {
     const passwordInput = screen.getByTestId(MockConstants.PASSWORD_TEST_ID);
     const loginBtn = screen.getByTestId(MockConstants.BTN_TEST_ID);
 
-    userEvent.type(emailInput, MockConstants.INVALID_EMAIL_3);
+    userEvent.type(emailInput, MockConstants.VALID_EMAIL);
     userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
     userEvent.click(loginBtn);
 
