@@ -65,9 +65,6 @@
       "reportWebVitals.js",
       "./services/renderWithRouter",
       "./services/history"
-    ],
-    "moduleNameMapper": {
-      "axios": "axios/dist/node/axios.cjs"
-    }
+    ]
   }
 }

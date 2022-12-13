@@ -18,6 +18,7 @@ function Login() {
 
     try {
       const user = await Post('/login', { email, password });
+      console.log('HHHHHHHHHHHHHH', user);
       setToken(user.token);
       setPassword('');
       setEmail('');
@@ -26,6 +27,7 @@ function Login() {
       if (user.role === 'seller') return navigate('/seller/orders');
       if (user.role === 'administrator') return navigate('/admin/manage');
     } catch (error) {
+      console.log('KKKKKKKKKKKK', error.message);
       setFailedTryLogin(true);
     }
   };

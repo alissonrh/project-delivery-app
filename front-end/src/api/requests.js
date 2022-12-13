@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
-
 });
 
 export const setToken = (token) => {
@@ -27,7 +26,9 @@ export const Put = async (endpoint, body) => {
 };
 
 export const Post = async (endpoint, body) => {
+  console.log('ronaldo', endpoint, body);
   const { data } = await api.post(endpoint, body);
+  console.log('ronaldoFofomeno', data);
   return data;
 };
 
