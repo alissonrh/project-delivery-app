@@ -18,7 +18,10 @@ const validateUser = (userData) => {
 
 const adminCreateUserSchema = Joi.object({
   name: Joi.string().min(12).required(),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+  email: Joi.string().email({
+    minDomainSegments: 2,
+    tlds: { allow: ['com', 'net', 'br'] },
+  }).required(),
   password: Joi.string().min(6).required(),
   role: Joi.string().valid('customer', 'seller').required(),
 }).required();
