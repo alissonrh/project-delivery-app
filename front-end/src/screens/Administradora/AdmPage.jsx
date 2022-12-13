@@ -13,7 +13,6 @@ function AdmPage() {
   const MIN_NOME = 12;
   const { email, setEmail, password, setPassword, role } = useContext(LoginContext);
   const [name, setName] = useState('');
-  const [disabled, setDisabled] = useState(true);
   const [users, setUsers] = useState([]);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
 
@@ -24,20 +23,15 @@ function AdmPage() {
     getUsers();
   });
 
-  /* const reloadPage = () => window.location.reload(true); */
-
   const createUser = async (event) => {
     event.preventDefault();
 
     try {
-      console.log({ email, password, name, role });
       await Post('/admin/manage', { email, password, name, role });
-      /* alert('Usuário cadatrado com sucesso'); */
-      console.log('entrou');
+
       setPassword('');
       setName('');
       setEmail('');
-      /* reloadPage(); */
     } catch (error) {
       console.log(error);
       setFailedTryLogin(true);
@@ -45,19 +39,6 @@ function AdmPage() {
   };
 
   const validate = () => name.length >= MIN_NOME && password.length >= MIN_SENHA && /\S+@\S+\.\S+/.test(email);
-
-  useEffect(() => {
-    /* if (email && password && name && role) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    } */
-    if (validate()) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [email, password, name, role]);
 
   return (
     <>
@@ -84,7 +65,7 @@ function AdmPage() {
           <button
             type="button"
             onClick={ (event) => createUser(event) }
-            disabled={ disabled }
+            disabled={ !validate() }
             data-testid="admin_manage__button-register"
           >
             CADASTRAR
