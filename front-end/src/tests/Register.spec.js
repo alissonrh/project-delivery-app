@@ -35,32 +35,6 @@ describe('Screen to register', () => {
     userEvent.type(emailInput, MockConstants.VALID_EMAIL);
     userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
     await waitFor(() => expect(registerBtn).toBeDisabled());
-
-    // userEvent.type(nameInput, MockConstants.VALID_NAME);
-    // userEvent.type(emailInput, 'ronaldo');
-    // userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
-    // await waitFor(() => expect(registerBtn).toBeEnabled());
-
-    // userEvent.type(nameInput, MockConstants.VALID_NAME);
-    // userEvent.type(emailInput, MockConstants.INVALID_EMAIL_2);
-    // userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
-    // console.log('registro', nameInput);
-    // await waitFor(() => expect(registerBtn).not.toBeEnabled());
-
-    // userEvent.type(nameInput, MockConstants.VALID_NAME);
-    // userEvent.type(emailInput, MockConstants.INVALID_EMAIL_3);
-    // userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
-    // await waitFor(() => expect(registerBtn).toBeDisabled());
-
-    // userEvent.type(nameInput, MockConstants.VALID_NAME);
-    // userEvent.type(emailInput, MockConstants.INVALID_EMAIL_4);
-    // userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
-    // await waitFor(() => expect(registerBtn).toBeDisabled());
-
-    // userEvent.type(nameInput, MockConstants.VALID_NAME);
-    // userEvent.type(emailInput, MockConstants.VALID_EMAIL);
-    // userEvent.type(passwordInput, MockConstants.INVALID_PASSWORD);
-    // await waitFor(() => expect(registerBtn).toBeDisabled());
   });
 
   it('É possível cadastrar um usuário com sucesso', async () => {

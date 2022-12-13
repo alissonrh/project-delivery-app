@@ -10,13 +10,6 @@ import MockConstants from './helpers/MockConstant';
 jest.mock('axios');
 
 describe('Testing screen Login', () => {
-  // const inputEmailTest = 'zebirita@email.com';
-  // const inputPasswordTest = '$#zebirita#$';
-  // const testIdEmail = 'common_login__input-email';
-  // const testIdPassword = 'common_login__input-password';
-  // const testIdBtnRegister = 'common_login__button-register';
-  // const testIdBtnLogin = 'common_login__button-login';
-
   it('Trying to access the route /', async () => {
     // axios.get.mockImplementation(() => Promise.resolve({ data: [] }));
     const { history: { pathname } } = renderWithRouter(<App />, '/login');
@@ -57,17 +50,6 @@ describe('Testing screen Login', () => {
 
     expect(history.pathname).toBe('/login');
 
-    // const responseMock = {
-    //   token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNj
-    //   cwNTE0MzM3LCJleHAiOjE2NzA1ODYzMzd9.1HIeahgblwmrWHPGyn5OM-t7wpldnK8yfd59RrzSHfU`,
-    //   id: 3,
-    //   name: 'Cliente Zé Birita',
-    //   email: 'zebirita@email.com',
-    //   role: 'customer',
-    // };
-
-    // jest.spyOn(httpRequest, 'post').mockResolvedValueOnce(responseMock);
-
     const inputEmail = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
     const inputPassword = screen.getByTestId(MockConstants.PASSWORD_TEST_ID);
     const btnLogin = screen.getByTestId(MockConstants.BTN_TEST_ID);
@@ -76,12 +58,6 @@ describe('Testing screen Login', () => {
     userEvent.type(inputPassword, MockConstants.VALID_PASSWORD);
 
     expect(btnLogin).toBeEnabled();
-
-    // userEvent.click(btnLogin);
-
-    // await waitFor(() => {
-    //   expect(history.pathname).toBe('/customer/products'); // Tem que trocar para /customer/products
-    // });
   });
 
   it(`O botão de login não é habilitado quando o e-mail 
@@ -147,12 +123,6 @@ describe('Testing screen Login', () => {
     await waitFor(() => {
       expect(history.pathname).toBe('/customer/products');
     });
-
-    // const user = JSON.parse(localStorage.getItem('user'));
-    // const token = JSON.parse(localStorage.getItem('token'));
-
-    // expect(user).toEqual(httpResponseMock.user);
-    // expect(token).toEqual(httpResponseMock.token);
   });
   it('A tela alerta se um usuário não estiver cadastrado', async () => {
     const httpResponseMock = {
@@ -165,14 +135,14 @@ describe('Testing screen Login', () => {
 
     const emailInput = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
     const passwordInput = screen.getByTestId(MockConstants.PASSWORD_TEST_ID);
-    const loginBtn = screen.getByTestId(MockConstants.BTN_TEST_ID);
+    const loginBtn = screen.getByTestId('common_login__button-login');
 
     userEvent.type(emailInput, MockConstants.INVALID_EMAIL_1);
     userEvent.type(passwordInput, MockConstants.VALID_PASSWORD);
-    userEvent.click(loginBtn);
+    fireEvent.click(loginBtn);
 
     const errorMessage = await screen
-      .findByTestId(MockConstants.INVALID_ERROR_REGISTER);
+      .findByTestId('common_login__element-invalid-email');
 
     expect(errorMessage).toBeInTheDocument();
   });
