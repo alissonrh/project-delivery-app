@@ -43,7 +43,7 @@ function Login() {
   }, [email, password]);
 
   if (isLogged) {
-    console.log('teste', isLogged.role);
+    // console.log('teste', isLogged.role);
     if (isLogged.role === 'customer') return <Navigate to="/customer/products" />;
     if (isLogged.role === 'seller') return <Navigate to="/seller/orders" />;
     if (isLogged.role === 'administrator') return <Navigate to="/admin/manage" />;
