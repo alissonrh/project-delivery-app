@@ -155,7 +155,7 @@ describe('Testing screen Login', () => {
       expect(history.pathname).toBe('/seller/orders');
     });
   });
-  it.only('Login with administrator when succeeds', async () => {
+  it('Login with administrator when succeeds', async () => {
     const httpResponseMock = {
       id: 1,
       name: MockConstants.VALID_NAME,

@@ -4,7 +4,7 @@ import App from '../App';
 import MockConstants from './helpers/MockConstant';
 import renderWithRouter from './helpers/renderWithRouters';
 
-describe.skip('Screen to register', () => {
+describe('Screen to register', () => {
   beforeEach(() => {
     renderWithRouter(<App />);
     const loginRegisterBtn = screen.getByTestId(

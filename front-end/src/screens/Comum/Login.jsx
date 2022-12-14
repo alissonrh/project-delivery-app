@@ -48,8 +48,6 @@ function Login() {
     if (isLogged.role === 'administrator') return <Navigate to="/admin/manage" />;
   }
 
-  if (isLogged) { return <Navigate to="/customer/products" />; }
-
   return (
     <form>
       <EmailInput
