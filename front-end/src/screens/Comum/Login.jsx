@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Post, setToken } from '../../api/requests';
 import EmailInput from '../../components/EmailInput';
 import PasswordInput from '../../components/PasswordInput';
@@ -8,10 +8,14 @@ import LoginContext from '../../context/LoginContext';
 function Login() {
   const MIN_SENHA = 6;
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
-  const [disabled, setDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
-  const isLogged = JSON.parse(localStorage.getItem('user'));
   const navigate = useNavigate();
+
+  const handleRedirect = ({ role }) => {
+    if (role === 'customer') return navigate('/customer/products');
+    if (role === 'seller') return navigate('/seller/orders');
+    if (role === 'administrator') return navigate('/admin/manage');
+  };
 
   const doLogin = async (event) => {
     event.preventDefault();
@@ -22,9 +26,7 @@ function Login() {
       setPassword('');
       setEmail('');
       localStorage.setItem('user', JSON.stringify(user));
-      if (user.role === 'customer') return navigate('/customer/products');
-      if (user.role === 'seller') return navigate('/seller/orders');
-      if (user.role === 'administrator') return navigate('/admin/manage');
+      handleRedirect(user);
     } catch (error) {
       setFailedTryLogin(true);
     }
@@ -37,16 +39,12 @@ function Login() {
   const validate = () => password.length >= MIN_SENHA && /\S+@\S+\.\S+/.test(email);
 
   useEffect(() => {
-    if (validate()) {
-      return setDisabled(false);
-    } setDisabled(true);
-  }, [email, password]);
+    const isLogged = JSON.parse(localStorage.getItem('user'));
 
-  if (isLogged) {
-    if (isLogged.role === 'customer') return <Navigate to="/customer/products" />;
-    if (isLogged.role === 'seller') return <Navigate to="/seller/orders" />;
-    if (isLogged.role === 'administrator') return <Navigate to="/admin/manage" />;
-  }
+    if (isLogged) {
+      handleRedirect(isLogged);
+    }
+  }, []);
 
   return (
     <form>
@@ -61,7 +59,7 @@ function Login() {
       <button
         type="submit"
         onClick={ (event) => doLogin(event) }
-        disabled={ disabled }
+        disabled={ !validate() }
         data-testid="common_login__button-login"
       >
         LOGIN

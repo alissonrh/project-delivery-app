@@ -14,15 +14,12 @@ describe('Testing screen Login', () => {
   afterEach(() => { localStorage.removeItem('user'); });
 
   it('Trying to access the route /', async () => {
-    // axios.get.mockImplementation(() => Promise.resolve({ data: [] }));
     const { history: { pathname } } = renderWithRouter(<App />, '/login');
-
     expect(pathname).toBe('/login');
   });
 
   it('Expect to all the elements to be rendering in the document', () => {
     renderWithRouter(<App />);
-
     const emailInput = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
     const passwordInput = screen.getByTestId(MockConstants.PASSWORD_TEST_ID);
     const loginBtn = screen.getByTestId(MockConstants.BTN_TEST_ID);
@@ -36,7 +33,6 @@ describe('Testing screen Login', () => {
 
   it('Testing the fields from input', async () => {
     renderWithRouter(<App />, '/login');
-
     const inputEmail = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
     const inputPassword = screen.getByTestId(MockConstants.PASSWORD_TEST_ID);
 
@@ -50,7 +46,6 @@ describe('Testing screen Login', () => {
   it(`The button to submit is only habilited when have a
     email and password valided`, async () => {
     const { history } = renderWithRouter(<App />, '/login');
-
     expect(history.pathname).toBe('/login');
 
     const inputEmail = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
@@ -59,11 +54,10 @@ describe('Testing screen Login', () => {
 
     userEvent.type(inputEmail, MockConstants.VALID_EMAIL);
     userEvent.type(inputPassword, MockConstants.VALID_PASSWORD);
-
     expect(btnLogin).toBeEnabled();
   });
 
-  it(` Login button is not enabled when email
+  it(`Login button is not enabled when email
     are not typed properly`, async () => {
     renderWithRouter(<App />, '/login');
 
@@ -73,7 +67,6 @@ describe('Testing screen Login', () => {
 
     userEvent.type(inputEmail, 'teste');
     userEvent.type(inputPassword, MockConstants.VALID_PASSWORD);
-
     expect(btnLogin).not.toBeEnabled();
   });
 
@@ -166,7 +159,6 @@ describe('Testing screen Login', () => {
 
     Post.mockResolvedValueOnce(httpResponseMock);
     Get.mockResolvedValueOnce(allUsersMock);
-
     const { history } = renderWithRouter(<App />, '/login');
 
     const emailInput = screen.getByTestId(MockConstants.EMAIL_TEST_ID);
@@ -178,6 +170,23 @@ describe('Testing screen Login', () => {
     userEvent.click(loginBtn);
     await waitFor(() => {
       expect(history.pathname).toBe('/admin/manage');
+    });
+  });
+  it('Testing when user is already logged in', async () => {
+    const httpResponseMock = {
+      id: 1,
+      name: MockConstants.VALID_NAME,
+      email: MockConstants.VALID_EMAIL,
+      role: 'customer',
+      token: 'validtokencustomer',
+    };
+
+    localStorage.setItem('user', JSON.stringify(httpResponseMock));
+
+    const { history } = renderWithRouter(<App />, '/login');
+
+    await waitFor(() => {
+      expect(history.pathname).toBe('/customer/products');
     });
   });
   it('The screen create a alert when user is not found', async () => {
