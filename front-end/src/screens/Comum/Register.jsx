@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Post, setToken } from '../../api/requests';
 import EmailInput from '../../components/EmailInput';
@@ -11,7 +11,6 @@ function Register() {
   const MIN_NOME = 12;
   const { email, setEmail, password, setPassword } = useContext(LoginContext);
   const [name, setName] = useState('');
-  const [disabled, setDisabled] = useState(true);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const navigate = useNavigate();
 
@@ -32,14 +31,6 @@ function Register() {
 
   const validate = () => name.length >= MIN_NOME && password.length >= MIN_SENHA && /\S+@\S+\.\S+/.test(email);
 
-  useEffect(() => {
-    if (validate()) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [email, password, name]);
-
   return (
     <>
       <NameInput
@@ -57,7 +48,7 @@ function Register() {
       <button
         type="submit"
         onClick={ (event) => createUser(event) }
-        disabled={ disabled }
+        disabled={ !validate() }
         data-testid="common_register__button-register"
       >
         CADASTRAR
