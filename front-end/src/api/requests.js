@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: `http://localhost:${process.env.REACT_APP_API_PORT || '3001'}`,
-
 });
 
 export const setToken = (token) => {
@@ -21,7 +20,6 @@ export const GetId = async (endpoint, body) => {
 };
 
 export const Put = async (endpoint, body) => {
-  console.log('ENTROU AQUI', endpoint, body);
   const { data } = await api.put(endpoint, body);
   return data;
 };
