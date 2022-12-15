@@ -17,6 +17,10 @@ const MockConstants = {
   INVALID_ERROR_REGISTER: 'common_login__element-invalid-email',
   SELLER_ORDERS_ELEMENT_ORDER_ID_TEST_ID: 'seller_orders__element-order-id-1',
   ALL_ORDERS_BTN_TEST_ID: 'customer_products__element-navbar-link-orders',
+  PREPARING_STATUS_BTN_TEST_ID: 'seller_order_details__button-preparing-check',
+  ELEMENT_DELIVERY_STATUS_TEST_ID:
+    'seller_order_details__element-order-details-label-delivery-status',
+  DISPATCH_BTN_TEST_ID: 'seller_order_details__button-dispatch-check',
   LOGOUT_BTN_TEST_ID: 'customer_products__element-navbar-link-logout',
   INVALID_NAME: 'Sim',
   VALID_NAME: 'Tio da Silva',
