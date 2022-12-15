@@ -17,6 +17,7 @@ const MockConstants = {
   INVALID_ERROR_REGISTER: 'common_login__element-invalid-email',
   SELLER_ORDERS_ELEMENT_ORDER_ID_TEST_ID: 'seller_orders__element-order-id-1',
   ALL_ORDERS_BTN_TEST_ID: 'customer_products__element-navbar-link-orders',
+  PRODUCTS_BTN_TEST_ID: 'customer_products__element-navbar-link-products',
   PREPARING_STATUS_BTN_TEST_ID: 'seller_order_details__button-preparing-check',
   ELEMENT_DELIVERY_STATUS_TEST_ID:
     'seller_order_details__element-order-details-label-delivery-status',
@@ -29,6 +30,10 @@ const MockConstants = {
   ADMIN_REGISTER_ROLE_TEST_ID: 'admin_manage__select-role',
   ADMIN_REGISTER_BTN: 'admin_manage__button-register',
   ADMIN_INVALID_REGISTER_ELEMENT: 'admin_manage__element-invalid-register',
+  CUSTOMER_QUANTITY_INPUT_TEST_ID: 'customer_products__input-card-quantity-1',
+  CUSTOMER_INCREASE_BTN_TEST_ID: 'customer_products__button-card-add-item-1',
+  CUSTOMER_DECREASE_BTN_TEST_ID: 'customer_products__button-card-rm-item-1',
+  CUSTOMER_CHECKOUT_BTN_TEST_ID: 'customer_products__button-cart',
   INVALID_NAME: 'Sim',
   VALID_NAME: 'Tio da Silva',
 };

@@ -29,6 +29,11 @@ export const adminUserMock = {
   token: 'anyvalidtoken',
 };
 
+export const customerUserMock = {
+  ...allUsersMock[1],
+  token: 'anyvalidtoken',
+};
+
 export const adminGetusersMock = [
   {
     id: 1,
@@ -40,6 +45,21 @@ export const adminGetusersMock = [
     id: 2,
     name: 'any_seller',
     email: 'any@seller.com.br',
+    role: 'seller',
+  },
+];
+
+export const getSellersMock = [
+  {
+    id: 2,
+    name: 'any_seller1',
+    email: 'any@seller1.com.br',
+    role: 'seller',
+  },
+  {
+    id: 3,
+    name: 'any_seller2',
+    email: 'any@seller2.com.br',
     role: 'seller',
   },
 ];

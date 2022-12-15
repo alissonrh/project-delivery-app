@@ -40,3 +40,13 @@ export const salesBySellerIdMock = [
     status: 'Pendente',
   },
 ];
+
+export const localStorageSaleMock = [
+  {
+    productId: 1,
+    name: 'any_product1',
+    quantity: 2,
+    unitPrice: '7.50',
+    urlImage: '',
+  },
+];
