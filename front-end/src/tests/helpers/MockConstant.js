@@ -22,6 +22,13 @@ const MockConstants = {
     'seller_order_details__element-order-details-label-delivery-status',
   DISPATCH_BTN_TEST_ID: 'seller_order_details__button-dispatch-check',
   LOGOUT_BTN_TEST_ID: 'customer_products__element-navbar-link-logout',
+  ADMIN_DELETE_USER_BTN_TEST_ID: 'admin_manage__element-user-table-remove-1',
+  ADMIN_REGISTER_NAME_TEST_ID: 'admin_manage__input-name',
+  ADMIN_REGISTER_EMAIL_TEST_ID: 'admin_manage__input-email',
+  ADMIN_REGISTER_PASSWORD_TEST_ID: 'admin_manage__input-password',
+  ADMIN_REGISTER_ROLE_TEST_ID: 'admin_manage__select-role',
+  ADMIN_REGISTER_BTN: 'admin_manage__button-register',
+  ADMIN_INVALID_REGISTER_ELEMENT: 'admin_manage__element-invalid-register',
   INVALID_NAME: 'Sim',
   VALID_NAME: 'Tio da Silva',
 };
