@@ -6,7 +6,7 @@ import App from '../App';
 import renderWithRouter from './helpers/renderWithRouters';
 import MockConstants from './helpers/MockConstant';
 import { Post, Get } from '../api/requests';
-import allUsersMock from './mocks/usersMock';
+import { allUsersMock } from './mocks/usersMock';
 
 jest.mock('../api/requests');
 

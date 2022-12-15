@@ -1,4 +1,4 @@
-const allUsersMock = [
+export const allUsersMock = [
   {
     id: 1,
     name: 'any_administrator',
@@ -19,4 +19,7 @@ const allUsersMock = [
   },
 ];
 
-export default allUsersMock;
+export const userMock = {
+  ...allUsersMock[2],
+  token: 'anyvalidtoken',
+};

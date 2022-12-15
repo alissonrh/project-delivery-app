@@ -15,6 +15,8 @@ const MockConstants = {
   REGISTER_PASSWORD_TEST_ID: 'common_register__input-password',
   REGISTER_BTN: 'common_register__button-register',
   INVALID_ERROR_REGISTER: 'common_login__element-invalid-email',
+  SELLER_ORDERS_ELEMENT_ORDER_ID_TEST_ID: 'seller_orders__element-order-id-1',
+  LOGOUT_BTN_TEST_ID: 'customer_products__element-navbar-link-logout',
   INVALID_NAME: 'Sim',
   VALID_NAME: 'Tio da Silva',
 };
