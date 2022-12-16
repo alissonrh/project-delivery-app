@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 function OrderCard({ id, status, saleDate, totalPrice, rote }) {
   const DEZ = 10;
   const navigate = useNavigate();
+
   return (
     <button
       style={ {

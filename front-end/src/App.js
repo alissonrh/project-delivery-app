@@ -101,7 +101,6 @@ function App() {
           </LoginProvider>
         }
       />
-      AdmPage
       <Route
         path="/admin/manage"
         element={

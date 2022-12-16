@@ -14,7 +14,6 @@ export const Get = async (endpoint) => {
 };
 
 export const GetId = async (endpoint, body) => {
-  console.log(endpoint, body);
   const { data } = await api.post(endpoint, body);
   return data;
 };

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Delete } from '../api/requests';
 
-function User({ user, index }) {
+function User({ user, index, handleDelete }) {
   const { id, name, email, role } = user;
   return (
     <div
@@ -42,7 +41,7 @@ function User({ user, index }) {
       <button
         data-testid={ `admin_manage__element-user-table-remove-${index}` }
         type="button"
-        onClick={ () => Delete(`admin/manage/${id}`) }
+        onClick={ () => handleDelete(id) }
       >
         Excluir
       </button>
@@ -57,6 +56,7 @@ User.propTypes = {
     role: PropTypes.string,
   }).isRequired,
   index: PropTypes.number.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default User;

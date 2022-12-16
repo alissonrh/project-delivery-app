@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Get, Post } from '../../api/requests';
+import { Delete, Get, Post } from '../../api/requests';
 import EmailInput from '../../components/EmailInput';
 import NameInput from '../../components/NameInput';
 import NavBarAdm from '../../components/NavBarAdm';
@@ -16,12 +16,18 @@ function AdmPage() {
   const [users, setUsers] = useState([]);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
 
+  const getUsers = async () => {
+    setUsers(await Get('/admin/manage'));
+  };
+
   useEffect(() => {
-    const getUsers = async () => {
-      setUsers(await Get('/admin/manage'));
-    };
     getUsers();
-  });
+  }, []);
+
+  const handleDelete = async (id) => {
+    await Delete(`admin/manage/${id}`);
+    getUsers();
+  };
 
   const createUser = async (event) => {
     event.preventDefault();
@@ -32,8 +38,8 @@ function AdmPage() {
       setPassword('');
       setName('');
       setEmail('');
+      getUsers();
     } catch (error) {
-      console.log(error);
       setFailedTryLogin(true);
     }
   };
@@ -106,7 +112,12 @@ function AdmPage() {
             (users.length > 0)
               ? (
                 users.map((user, index) => (
-                  <User user={ user } index={ index } key={ index } />
+                  <User
+                    user={ user }
+                    index={ index }
+                    key={ index }
+                    handleDelete={ handleDelete }
+                  />
                 ))
               )
               : null

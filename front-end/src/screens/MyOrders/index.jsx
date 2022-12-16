@@ -11,7 +11,6 @@ export default function MyOrders() {
 
   useEffect(() => {
     const userId = JSON.parse(localStorage.getItem('user')).id;
-    console.log({ userId });
     getProducts(userId);
   }, []);
 

@@ -3,7 +3,10 @@ const CustomError = require('../../Errors/CustomError');
 
 const createUserSchema = Joi.object({
   name: Joi.string().min(12).required(),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }).required(),
+  email: Joi.string().email({
+    minDomainSegments: 2,
+    tlds: { allow: ['com', 'net', 'br'] },
+  }).required(),
   password: Joi.string().min(6).required(),
 }).required();
 
