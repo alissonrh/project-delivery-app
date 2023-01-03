@@ -15,6 +15,9 @@ function PasswordInput({ setPassword, dataTestid, passwordform }) {
     <label htmlFor="password">
       Senha
       <input
+        className="shadow appearance-none border mt-1.5 rounded w-full py-2 px-3 m-1
+      text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+       focus:border-2 focus:border-verde-escuro"
         value={ passwordform }
         data-testid={ dataTestid }
         type="password"
