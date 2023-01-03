@@ -13,7 +13,7 @@ function EmailInput({ setEmail, dataTestid, emailform }) {
 
   return (
     <label
-      className="block text-verde-escuro text-sm font-bold mb-2"
+      className="block text-verde-escuro text-md font-bold w-full mb-2"
       htmlFor="email"
     >
       Email

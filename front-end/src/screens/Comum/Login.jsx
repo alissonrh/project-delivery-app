@@ -65,7 +65,7 @@ function Login() {
           dataTestid="common_login__input-email"
         />
         <label
-          className="block text-verde-escuro text-sm font-bold w-full mb-2"
+          className="block text-verde-escuro text-md font-bold w-full mb-2"
           htmlFor="password"
         >
           Senha
@@ -111,7 +111,10 @@ function Login() {
         {
           (failedTryLogin)
             ? (
-              <p data-testid="common_login__element-invalid-email">
+              <p
+                className="box-content"
+                data-testid="common_login__element-invalid-email"
+              >
                 {
                   `O endereço de e-mail ou a senha não estão corretos.
                     Por favor, tente novamente.`

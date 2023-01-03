@@ -12,12 +12,16 @@ function PasswordInput({ setPassword, dataTestid, passwordform }) {
   };
 
   return (
-    <label htmlFor="password">
+    <label
+      className="block text-verde-escuro text-md font-bold w-full mb-2"
+      htmlFor="password"
+    >
       Senha
       <input
-        className="shadow appearance-none border mt-1.5 rounded w-full py-2 px-3 m-1
-      text-gray-700 leading-tight focus:outline-none focus:shadow-outline
-       focus:border-2 focus:border-verde-escuro"
+        className="shadow-md appearance-none border border-verde-escuro
+        mt-1.5 rounded w-full py-2 px-3
+   text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+    focus:border-2 focus:border-verde-claro"
         value={ passwordform }
         data-testid={ dataTestid }
         type="password"

@@ -32,40 +32,58 @@ function Register() {
   const validate = () => name.length >= MIN_NOME && password.length >= MIN_SENHA && /\S+@\S+\.\S+/.test(email);
 
   return (
-    <>
-      <NameInput
-        setName={ setName }
-        dataTestid="common_register__input-name"
-      />
-      <EmailInput
-        setEmail={ setEmail }
-        dataTestid="common_register__input-email"
-      />
-      <PasswordInput
-        setPassword={ setPassword }
-        dataTestid="common_register__input-password"
-      />
-      <button
-        type="submit"
-        onClick={ (event) => createUser(event) }
-        disabled={ !validate() }
-        data-testid="common_register__button-register"
+    <div
+      className="flex h-screen
+      justify-center items-center"
+    >
+      <form
+        className="bg-white flex flex-col items-center gap-x-4
+      shadow-2xl rounded-lg border
+     border-verde-escuro px-8 pt-6 pb-8 mb-4"
       >
-        CADASTRAR
-      </button>
-      {
-        (failedTryLogin)
-          ? (
-            <p data-testid="common_register__element-invalid_register">
-              {
-                `O endereço de e-mail já existe no banco de dados.
+        <NameInput
+          setName={ setName }
+          dataTestid="common_register__input-name"
+        />
+        <EmailInput
+          setEmail={ setEmail }
+          dataTestid="common_register__input-email"
+        />
+        <PasswordInput
+          setPassword={ setPassword }
+          dataTestid="common_register__input-password"
+        />
+        <button
+          className={
+            `${validate()
+              ? 'opacity-100'
+              : 'opacity-40'}
+              bg-verde-escuro text-white 
+         font-bold py-2 px-4 rounded border m-1
+          focus:outline-none w-full focus:shadow-outline`
+          }
+          type="submit"
+          onClick={ (event) => createUser(event) }
+          disabled={ !validate() }
+          data-testid="common_register__button-register"
+        >
+          CADASTRAR
+        </button>
+        {
+          (failedTryLogin)
+            ? (
+              <p data-testid="common_register__element-invalid_register">
+                {
+                  `O endereço de e-mail já existe no banco de dados.
                     Por favor, tente novamente.`
-              }
-            </p>
-          )
-          : null
-      }
-    </>
+                }
+              </p>
+            )
+            : null
+        }
+      </form>
+
+    </div>
   );
 }
 
