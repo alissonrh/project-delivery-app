@@ -41,7 +41,6 @@ function Login() {
   };
 
   const validate = () => password.length >= MIN_SENHA && /\S+@\S+\.\S+/.test(email);
-  console.log(validate());
   useEffect(() => {
     const isLogged = JSON.parse(localStorage.getItem('user'));
     if (isLogged) {
@@ -75,7 +74,7 @@ function Login() {
               rounded w-full py-2 px-3
               text-gray-700 mt-1.5 mb-3 leading-tight
               focus:outline-none focus:shadow-outline
-              focus:border-2 focus:border-verde-claro"
+              focus:border focus:border-verde-claro"
               id="password"
               type={ showPassword ? 'text' : 'password' }
               placeholder="******"

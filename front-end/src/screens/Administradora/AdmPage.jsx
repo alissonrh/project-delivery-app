@@ -49,81 +49,125 @@ function AdmPage() {
   return (
     <>
       <NavBarAdm />
-      <div>
+      <h1
+        className="text-2xl my-5"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
         CADASTRAR NOVO USUÁRIO
-        <form>
-          <NameInput
-            nameform={ name }
-            setName={ setName }
-            dataTestid="admin_manage__input-name"
-          />
-          <EmailInput
-            emailform={ email }
-            setEmail={ setEmail }
-            dataTestid="admin_manage__input-email"
-          />
-          <PasswordInput
-            passwordform={ password }
-            setPassword={ setPassword }
-            dataTestid="admin_manage__input-password"
-          />
-          <SelectAdm />
-          <button
-            type="button"
-            onClick={ (event) => createUser(event) }
-            disabled={ !validate() }
-            data-testid="admin_manage__button-register"
-          >
-            CADASTRAR
-          </button>
-          {
-            (failedTryLogin)
-              ? (
-                <p data-testid="admin_manage__element-invalid-register">
-                  {
-                    `O endereço de e-mail já existe no banco de dados.
-                    Por favor, tente novamente.`
-                  }
-                </p>
-              )
-              : null
+      </h1>
+      <form
+        className="border-2 p-3 shadow-2xl grid
+        grid-cols-5 gap-6 my-3
+        text-lg"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
+        <NameInput
+          nameform={ name }
+          setName={ setName }
+          dataTestid="admin_manage__input-name"
+        />
+        <EmailInput
+          emailform={ email }
+          setEmail={ setEmail }
+          dataTestid="admin_manage__input-email"
+        />
+        <PasswordInput
+          passwordform={ password }
+          setPassword={ setPassword }
+          dataTestid="admin_manage__input-password"
+        />
+        <SelectAdm />
+        <button
+          className={
+            `${!validate()
+              ? 'opacity-40'
+              : 'opacity-100'}
+          text-xl my-1 bg-[#036B52] text-white p-1 text-center rounded`
           }
-        </form>
-      </div>
-      <div>
+          type="button"
+          onClick={ (event) => createUser(event) }
+          disabled={ !validate() }
+          data-testid="admin_manage__button-register"
+        >
+          CADASTRAR
+        </button>
+        {
+          (failedTryLogin)
+            ? (
+              <p data-testid="admin_manage__element-invalid-register">
+                {
+                  `O endereço de e-mail já existe no banco de dados.
+                    Por favor, tente novamente.`
+                }
+              </p>
+            )
+            : null
+        }
+      </form>
+      <h1
+        className="text-2xl my-5"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
         Lista de usários
+      </h1>
+      <article
+        className="border-2 p-3 shadow-2xl"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
         <div
-          style={ {
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '5px',
-            marginLeft: '25%',
-            marginRight: '25%',
-          } }
+          className="grid grid-cols-7 text-center"
         >
           <p>Item</p>
-          <p>Nome</p>
-          <p>E-mail</p>
+          <p
+            className="col-span-2"
+          >
+            Nome
+
+          </p>
+          <p
+            className="col-span-2"
+          >
+            E-mail
+
+          </p>
           <p>Tipo</p>
           <p>Excluir</p>
         </div>
-        <div>
-          {
-            (users.length > 0)
-              ? (
-                users.map((user, index) => (
+        {
+          (users.length > 0)
+            ? (
+              users.map((user, index) => (
+                <div
+                  className="grid grid-cols-7
+                     text-center items-center justify-center my-3
+            text-lg"
+                  key={ index }
+                >
                   <User
                     user={ user }
                     index={ index }
-                    key={ index }
                     handleDelete={ handleDelete }
                   />
-                ))
-              )
-              : null
-          }
-        </div>
-      </div>
+
+                </div>
+
+              ))
+            )
+            : null
+        }
+      </article>
     </>
   );
 }

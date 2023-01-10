@@ -28,8 +28,23 @@ export default function DetailsOrder() {
   return (
     <>
       <NavBar />
-      <h1>Detalhes do Pedido</h1>
-      <div>
+      <h1
+        className="text-2xl my-5"
+        style={ {
+          marginLeft: '5%',
+          marginRight: '5%',
+        } }
+      >
+        Detalhes do Pedido
+
+      </h1>
+      <div
+        className="border-2 shadow-2xl"
+        style={ {
+          marginLeft: '5%',
+          marginRight: '5%',
+        } }
+      >
         <HeaderOrdersDetail
           id={ order.id }
           sellerName={ order.sellerName }
@@ -38,15 +53,18 @@ export default function DetailsOrder() {
         />
         <div
           style={ {
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '5px',
-            marginLeft: '25%',
-            marginRight: '25%',
+            marginLeft: '5%',
+            marginRight: '5%',
           } }
+          className="grid grid-cols-6 text-center mt-2"
         >
           <p>Item</p>
-          <p>Descrição</p>
+          <p
+            className="col-span-2"
+          >
+            Descrição
+
+          </p>
           <p>Quantidade</p>
           <p>Valor Unitário</p>
           <p>Sub-total</p>
@@ -54,21 +72,30 @@ export default function DetailsOrder() {
         {
           products?.map((item, index) => (
             <div
+              style={ {
+                marginLeft: '5%',
+                marginRight: '5%',
+              } }
+              className="grid grid-cols-6 text-center items-center justify-center my-3
+            text-lg"
               key={ index }
             >
               <OrderDetailsItem rote="customer" item={ item } index={ index } />
             </div>
           ))
         }
-      </div>
-      <div>
-        <p
-          data-testid="customer_order_details__element-order-total-price"
+        <div
+          className="flex flex-row-reverse mx-3"
         >
-          Total: R$
-          {' '}
-          {total.replace(/\./, ',')}
-        </p>
+          <p
+            className="text-3xl my-3 bg-[#036B52] text-white p-1.5 text-center rounded"
+            data-testid="customer_order_details__element-order-total-price"
+          >
+            Total: R$
+            {' '}
+            {total.replace(/\./, ',')}
+          </p>
+        </div>
       </div>
     </>
   );

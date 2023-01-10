@@ -11,7 +11,7 @@ export default function Checkout() {
   const [total, setTotal] = useState(0);
   const [sellers, setSellers] = useState([]);
   const [user, setUser] = useState();
-  const [sellerId, setSellerId] = useState(0);
+  const [sellerId, setSellerId] = useState('');
   const [deliveryAddress, setAdress] = useState('');
   const [deliveryNumber, setNumber] = useState('');
   const [disabled, setDisabled] = useState(true);
@@ -70,6 +70,7 @@ export default function Checkout() {
         },
         sales: newProduct,
       };
+      console.log(reqBody);
       const res = await PostAuth('/customer/checkout', reqBody, user.token);
       localStorage.setItem('sale', JSON.stringify([]));
       navigator(`/customer/orders/${res.saleId}`);
@@ -78,32 +79,52 @@ export default function Checkout() {
     }
   };
   return (
-    <div>
+    <>
       <NavBar />
-      <h1>Finalizar Pedido</h1>
-      <div>
+      <h1
+        className="text-2xl my-5"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
+        Finalizar Pedido
+
+      </h1>
+
+      <article
+        className="border-2 p-3 shadow-2xl"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
         <div
-          style={ {
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '5px',
-            marginLeft: '25%',
-            marginRight: '25%',
-          } }
+          className="grid grid-cols-7 text-center"
         >
           <p>Item</p>
-          <p>Descrição</p>
+          <p
+            className="col-span-2"
+          >
+            Descrição
+
+          </p>
           <p>Quantidade</p>
           <p>Valor Unitário</p>
           <p>Sub-total</p>
+          <p>Excluir</p>
         </div>
+
         {
           products.map((item, index) => (
             <div
+              className="grid grid-cols-7 text-center items-center justify-center my-3
+            text-lg"
               key={ index }
             >
               <ItemPedido item={ item } index={ index } />
               <button
+                className="bg-[#2FC18C] text-white rounded-r-md"
                 onClick={ () => setProducts(products
                   .filter((product) => product !== item)) }
                 type="button"
@@ -114,22 +135,52 @@ export default function Checkout() {
             </div>
           ))
         }
-      </div>
-      <Total total={ total } />
-      <h1>Detalhes e Endereços para Entrega</h1>
-      <div>
-        <div>
-          <div>
+        <Total
+          total={ total }
+        />
+      </article>
+
+      <h1
+        className="text-2xl my-5"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
+        Detalhes e Endereços para entrega
+
+      </h1>
+      <div
+        className="border-2 p-3 shadow-2xl mb-12 flex flex-col items-center"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
+        <div
+          className="flex"
+        >
+          <div
+            className="flex flex-col px-12"
+          >
             <h3>
-              P. Vendedora Responsável:
+              P. Vendedora Responsável
 
             </h3>
+            {console.log(sellers)}
             {sellers.length > 0
               ? <Select sellers={ sellers } setSellerId={ setSellerId } /> : null}
           </div>
-          <div>
+          <div
+            className="px-12"
+          >
             <h3>Endereço</h3>
             <input
+              className="shadow-md appearance-none border border-verde-escuro
+            rounded w-full py-2 px-3
+            text-gray-700 mt-1.5 mb-3 leading-tight
+            focus:outline-none focus:shadow-outline
+            focus:border focus:border-verde-claro"
               data-testid="customer_checkout__input-address"
               value={ deliveryAddress }
               onChange={ (e) => setAdress(e.target.value) }
@@ -137,8 +188,16 @@ export default function Checkout() {
               placeholder="Rua"
             />
           </div>
-          <div>
+          <div
+            className="px-12"
+          >
+            <h3>Número</h3>
             <input
+              className="shadow-md appearance-none border border-verde-escuro
+            rounded w-full py-2 px-3
+            text-gray-700 mt-1.5 mb-3 leading-tight
+            focus:outline-none focus:shadow-outline
+            focus:border focus:border-verde-claro"
               data-testid="customer_checkout__input-address-number"
               value={ deliveryNumber }
               onChange={ (e) => setNumber(e.target.value) }
@@ -148,6 +207,12 @@ export default function Checkout() {
           </div>
         </div>
         <button
+          className={
+            `${disabled
+              ? 'opacity-40'
+              : 'opacity-100'}
+            text-2xl my-3 bg-[#036B52] text-white p-1.5 w-56 text-center rounded`
+          }
           data-testid="customer_checkout__button-submit-order"
           type="button"
           onClick={ () => handleSubmit() }
@@ -156,6 +221,6 @@ export default function Checkout() {
           Finalizar Pedido
         </button>
       </div>
-    </div>
+    </>
   );
 }

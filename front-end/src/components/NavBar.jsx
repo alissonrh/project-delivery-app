@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ExitBtn from './ExitBtn';
-/* import PropTypes from 'prop-types'; */
 
 function NavBar() {
   const navigate = useNavigate();
@@ -14,9 +13,12 @@ function NavBar() {
   }, []);
 
   return (
-    <header style={ { backgroundColor: 'blue' } }>
-      <nav>
+    <header
+      className="h-16"
+    >
+      <nav className="grid grid-cols-4 h-full">
         <button
+          className="bg-[#2FC18C]"
           type="button"
           onClick={ () => navigate('/customer/products') }
           data-testid="customer_products__element-navbar-link-products"
@@ -25,6 +27,7 @@ function NavBar() {
 
         </button>
         <button
+          className="bg-[#036B52] text-white"
           type="button"
           onClick={ () => navigate('/customer/orders') }
           data-testid="customer_products__element-navbar-link-orders"
@@ -33,7 +36,7 @@ function NavBar() {
 
         </button>
         <p
-          data-testid="customer_products__element-navbar-user-full-name"
+          className="flex items-center justify-center col-span-2 bg-[#421981] text-white"
         >
           {name}
         </p>

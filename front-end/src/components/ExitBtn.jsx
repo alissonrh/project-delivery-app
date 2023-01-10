@@ -11,6 +11,7 @@ function ExitBtn() {
 
   return (
     <button
+      className="w-32 col-end-7 bg-[#056CF9] text-white"
       type="button"
       onClick={ logoff }
       data-testid="customer_products__element-navbar-link-logout"

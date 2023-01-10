@@ -21,7 +21,7 @@ function NameInput({ setName, dataTestid, nameform }) {
         className="shadow-md appearance-none border border-verde-escuro
         mt-1.5 rounded w-full py-2 px-3
    text-gray-700 leading-tight focus:outline-none focus:shadow-outline
-    focus:border-2 focus:border-verde-claro"
+    focus:border focus:border-verde-claro"
         value={ nameform }
         data-testid={ dataTestid }
         type="text"
