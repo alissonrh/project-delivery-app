@@ -44,12 +44,8 @@ function ProductCard({ id, price, urlImage, name }) {
   }, [sales]);
 
   return (
-    <div>
-      <span data-testid={ `customer_products__element-card-price-${id}` }>
-        {price.replace('.', ',')}
-      </span>
+    <div className="product-card">
       <img
-        height={ 250 }
         data-testid={ `customer_products__img-card-bg-image-${id}` }
         src={ urlImage }
         alt={ name }
@@ -60,29 +56,36 @@ function ProductCard({ id, price, urlImage, name }) {
         {name}
 
       </span>
-      <button
-        data-testid={ `customer_products__button-card-rm-item-${id}` }
-        type="button"
-        onClick={ () => setQuantity(Number(quantity) - 1) }
-        disabled={ disabled }
-      >
-        -
+      <span data-testid={ `customer_products__element-card-price-${id}` }>
+        R$
+        {' '}
+        {price.replace('.', ',')}
+      </span>
+      <div>
+        <button
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          type="button"
+          onClick={ () => setQuantity(Number(quantity) - 1) }
+          disabled={ disabled }
+        >
+          -
 
-      </button>
-      <input
-        data-testid={ `customer_products__input-card-quantity-${id}` }
-        type="number"
-        value={ quantity }
-        onChange={ (e) => { setQuantity(e.target.value); } }
-      />
-      <button
-        data-testid={ `customer_products__button-card-add-item-${id}` }
-        type="button"
-        onClick={ () => setQuantity(Number(quantity) + 1) }
-      >
-        +
+        </button>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          value={ quantity }
+          onChange={ (e) => { setQuantity(e.target.value); } }
+        />
+        <button
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          type="button"
+          onClick={ () => setQuantity(Number(quantity) + 1) }
+        >
+          +
 
-      </button>
+        </button>
+      </div>
+
     </div>
   );
 }

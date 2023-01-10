@@ -9,17 +9,27 @@ function Products() {
   return (
     <>
       <NavBar />
-      {
-        (products) && products
-          .map(({ id, price, urlImage, name }) => (
-            <ProductCard
-              key={ id }
-              id={ id }
-              price={ price }
-              urlImage={ urlImage }
-              name={ name }
-            />))
-      }
+      <div
+        className="flex flex-wrap justify-around"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+          marginBottom: '10%',
+        } }
+      >
+        {
+          (products) && products
+            .map(({ id, price, urlImage, name }) => (
+              <ProductCard
+                key={ id }
+                id={ id }
+                price={ price }
+                urlImage={ urlImage }
+                name={ name }
+              />))
+        }
+      </div>
+
       <SalesCount />
     </>
   );

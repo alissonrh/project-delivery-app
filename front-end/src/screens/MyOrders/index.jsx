@@ -15,18 +15,26 @@ export default function MyOrders() {
   }, []);
 
   return (
-    <div>
+    <>
       <NavBar />
-      {orders?.map((e) => (
-        <OrderCard
-          rote="customer"
-          key={ e.id }
-          id={ e.id }
-          status={ e.status }
-          totalPrice={ e.totalPrice }
-          saleDate={ e.saleDate }
-        />
-      ))}
-    </div>
+      <div
+        className="grid grid-cols-2 mt-12"
+        style={ {
+          marginLeft: '10%',
+          marginRight: '10%',
+        } }
+      >
+        {orders?.map((e) => (
+          <OrderCard
+            rote="customer"
+            key={ e.id }
+            id={ e.id }
+            status={ e.status }
+            totalPrice={ e.totalPrice }
+            saleDate={ e.saleDate }
+          />
+        ))}
+      </div>
+    </>
   );
 }

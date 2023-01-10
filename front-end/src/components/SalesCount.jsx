@@ -28,14 +28,20 @@ function SalesCount() {
         bottom: '5%',
         right: '5%',
         zIndex: 999,
-        fontSize: '36px',
+        fontSize: '30px',
       } }
+      className={
+        `${disabled
+          ? 'opacity-40'
+          : 'opacity-100'}
+          bg-[#036B52] text-white p-2 rounded`
+      }
       type="button"
       data-testid="customer_products__button-cart"
       onClick={ () => navigate('/customer/checkout') }
       disabled={ disabled }
     >
-      Total: R$
+      Ver Carrinho: R$
       {' '}
       <span data-testid="customer_products__checkout-bottom-value">
         {soma.toFixed(2).replace('.', ',')}

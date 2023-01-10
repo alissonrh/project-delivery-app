@@ -13,9 +13,14 @@ function NavBarSeller() {
   }, []);
 
   return (
-    <header style={ { backgroundColor: 'green' } }>
-      <nav>
+    <header
+      className="h-16"
+    >
+      <nav
+        className="grid grid-cols-3 h-full"
+      >
         <button
+          className="bg-[#2FC18C]"
           type="button"
           onClick={ () => navigate('/seller/orders') }
           data-testid="customer_products__element-navbar-link-orders"
@@ -24,6 +29,7 @@ function NavBarSeller() {
 
         </button>
         <p
+          className="flex items-center justify-center col-span-2 bg-[#421981] text-white"
           data-testid="customer_products__element-navbar-user-full-name"
         >
           {name}
