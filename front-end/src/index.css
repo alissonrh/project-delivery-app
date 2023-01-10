@@ -9,24 +9,25 @@
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  width: 350px;
+  width: 250px;
   margin-top: 10px;
   margin-bottom: 10px;
   padding-bottom: 8px;
 }
 
 .product-card img {
-  height: 250px;
+  height: 150px;
 }
 
 .product-card span:first-of-type {
-  font-size: 1.5em;
+  font-size: 1.25em;
+  text-align: center;
   font-weight: bold;
   margin: 10px 0;
 }
 
 .product-card span:nth-of-type(2) {
-  font-size: 1.5em;
+  font-size: 1em;
   margin: 10px 0;
 }
 
@@ -37,7 +38,7 @@
   border: none;
   border-radius: 50%;
   background-color: #f2f2f2;
-  font-size: 1.5em;
+  font-size: 1em;
   font-weight: bold;
   color: #333;
   cursor: pointer;
