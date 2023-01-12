@@ -1,36 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import getStatusColour from '../utils/getStatusColour';
 
 function OrderCard({ id, status, saleDate, totalPrice, rote }) {
   const DEZ = 10;
   const navigate = useNavigate();
 
-  const getStatusColour = (orderStatus) => {
-    let statusColour = '';
-    switch (orderStatus) {
-    case 'Entregue':
-      statusColour = 'bg-[#036B52]';
-      break;
-    case 'Em Trânsito':
-      statusColour = 'bg-[#0d99ff]';
-      break;
-    case 'Preparando':
-      statusColour = 'bg-[#87d53c]';
-      break;
-    default:
-      statusColour = 'bg-[#d3c63c]';
-    }
-    return statusColour;
-  };
-
   return (
     <button
-      style={ {
-        display: 'flex',
-        justifyContent: 'space-between',
-        margin: '5px',
-      } }
+      className="flex items-center justify-center"
       type="button"
       onClick={ () => navigate(`/${rote}/orders/${id}`) }
     >

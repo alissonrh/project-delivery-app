@@ -11,7 +11,7 @@ export default function Checkout() {
   const [total, setTotal] = useState(0);
   const [sellers, setSellers] = useState([]);
   const [user, setUser] = useState();
-  const [sellerId, setSellerId] = useState('');
+  const [sellerId, setSellerId] = useState('2');
   const [deliveryAddress, setAdress] = useState('');
   const [deliveryNumber, setNumber] = useState('');
   const [disabled, setDisabled] = useState(true);

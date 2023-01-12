@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import StatusContext from '../context/StatusContext';
+import getStatusColour from '../utils/getStatusColour';
 
 function HeaderOrdersSellerDetail({ id, saleDate }) {
   const DEZ = 10;
@@ -25,7 +26,8 @@ function HeaderOrdersSellerDetail({ id, saleDate }) {
 
       </div>
       <div
-        className="bg-[#2FC18C] rounded-md p-1.5"
+        className={ `${getStatusColour(status)}
+        rounded-md p-1.5` }
         data-testid="seller_order_details__element-order-details-label-delivery-status"
       >
         {status}

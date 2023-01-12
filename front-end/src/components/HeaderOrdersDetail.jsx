@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import StatusContext from '../context/StatusContext';
+import getStatusColour from '../utils/getStatusColour';
 
 function HeaderOrdersDetail({ id, sellerName, saleDate }) {
   const DEZ = 10;
@@ -17,20 +18,18 @@ function HeaderOrdersDetail({ id, sellerName, saleDate }) {
         {' '}
         {id}
       </div>
-      <div
-        data-testid="customer_order_details__element-order-details-label-seller-name"
-      >
+      <div>
+        Vend.
+        {' '}
         {sellerName}
       </div>
-      <div
-        data-testid="customer_order_details__element-order-details-label-order-date"
-      >
+      <div>
         {new Date(saleDate).toLocaleDateString('pt-BR').slice(0, DEZ)}
 
       </div>
       <div
-        className="bg-[#2FC18C] rounded-md p-1.5"
-        data-testid="customer_order_details__element-order-details-label-delivery-status"
+        className={ `${getStatusColour(status)}
+       rounded-md p-1.5` }
       >
         {status}
       </div>
