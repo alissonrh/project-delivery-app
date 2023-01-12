@@ -16,3 +16,6 @@ O projeto App de Delivery é uma aplicação Full Stack desenvolvida para uma di
 * Desenvolvida com React, ContextAPI, React Hooks, Axios e TailWind CSS
 * Testes de integração criados utilizando React Testing Library e Jest 
 
+## Preview 
+
+<center><img src="./gif-tela.gif" width="800" >
