@@ -2,17 +2,17 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import LoginProvider from './context/LoginProvider';
 import ProductsProvider from './context/ProductsProvider';
-import Products from './screens/Cliente/Products';
-import Checkout from './screens/Checkout';
-import DetailsOrder from './screens/DetailesOrder';
-import MyOrders from './screens/MyOrders';
+import Products from './screens/Customer/Products';
+import Checkout from './screens/Customer/Checkout';
+import DetailsOrder from './screens/Customer/DetailsOrder';
+import Order from './screens/Customer/Order';
 
 import Login from './screens/Comum/Login';
 import Register from './screens/Comum/Register';
-import SellerOrders from './screens/Vendedora/SellerOrders';
-import SellerDetailsOrder from './screens/Vendedora/SellerDetailesOrder';
+import SellerOrders from './screens/Seller/SellerOrders';
+import SellerDetailsOrder from './screens/Seller/SellerDetailesOrder';
 import StatusProvider from './context/StatusProvider';
-import AdmPage from './screens/Administradora/AdmPage';
+import AdmPage from './screens/Administrator/AdmPage';
 
 function App() {
   return (
@@ -64,7 +64,7 @@ function App() {
         element={
           <LoginProvider>
             <StatusProvider>
-              <MyOrders />
+              <Order />
             </StatusProvider>
           </LoginProvider>
         }
