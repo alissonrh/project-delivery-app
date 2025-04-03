@@ -1,0 +1,13 @@
+{
+  "name": "Delivery App - Backend",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "backend",
+  "workspaceFolder": "/app",
+  "forwardPorts": [3001],
+  "initializeCommand": "chmod +x .devcontainer/post-create.sh",
+  "postCreateCommand": "./.devcontainer/post-create.sh",
+  "containerEnv": {
+    "MYSQL_HOST": "mysql",
+    "MYSQL_PORT": "3306"
+  }
+}
