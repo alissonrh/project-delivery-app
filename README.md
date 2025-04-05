@@ -50,7 +50,7 @@ docker compose up -d --build
 
 ### 🌐 Acessar a API
 
-As migrrations e seeds já rodaram no momento do build. O back-end estará disponível em:
+As migrations e seeds já são executados durante o processo de build. O back-end estará disponível em:
 
 ```
 http://localhost:3001
