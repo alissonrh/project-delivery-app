@@ -48,32 +48,9 @@ docker compose up -d --build
 
 ---
 
-### 🧪 Rodar migrations e seeds
-
-Acesse o container do backend:
-
-```bash
-docker exec -it delivery_backend bash
-```
-
-Então, rode:
-
-```bash
-npm run db:reset
-```
-
-Este comando vai:
-
-- Dropar o banco (caso exista)
-- Criar o banco novamente
-- Rodar todas as migrations
-- Popular o banco com os seeds
-
----
-
 ### 🌐 Acessar a API
 
-O back-end estará disponível em:
+As migrrations e seeds já rodaram no momento do build. O back-end estará disponível em:
 
 ```
 http://localhost:3001
