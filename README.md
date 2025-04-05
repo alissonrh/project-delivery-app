@@ -43,7 +43,7 @@ cp .env.example .env
 ### 🐳 Subir containers com Docker Compose
 
 ```bash
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 ---

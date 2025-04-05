@@ -70,7 +70,7 @@ export default function Checkout() {
         },
         sales: newProduct,
       };
-      console.log(reqBody);
+
       const res = await PostAuth('/customer/checkout', reqBody, user.token);
       localStorage.setItem('sale', JSON.stringify([]));
       navigator(`/customer/orders/${res.saleId}`);
@@ -83,10 +83,10 @@ export default function Checkout() {
       <NavBar />
       <h1
         className="text-2xl my-5"
-        style={ {
+        style={{
           marginLeft: '10%',
           marginRight: '10%',
-        } }
+        }}
       >
         Finalizar Pedido
 
@@ -94,10 +94,10 @@ export default function Checkout() {
 
       <article
         className="border-2 p-3 shadow-2xl"
-        style={ {
+        style={{
           marginLeft: '10%',
           marginRight: '10%',
-        } }
+        }}
       >
         <div
           className="grid grid-cols-7 text-center"
@@ -120,15 +120,15 @@ export default function Checkout() {
             <div
               className="grid grid-cols-7 text-center items-center justify-center my-3
             text-lg"
-              key={ index }
+              key={index}
             >
-              <ItemPedido item={ item } index={ index } />
+              <ItemPedido item={item} index={index} />
               <button
                 className="bg-[#2FC18C] text-white rounded-r-md"
-                onClick={ () => setProducts(products
-                  .filter((product) => product !== item)) }
+                onClick={() => setProducts(products
+                  .filter((product) => product !== item))}
                 type="button"
-                data-testid={ `customer_checkout__element-order-table-remove-${index}` }
+                data-testid={`customer_checkout__element-order-table-remove-${index}`}
               >
                 Remover item
               </button>
@@ -136,26 +136,26 @@ export default function Checkout() {
           ))
         }
         <Total
-          total={ total }
+          total={total}
         />
       </article>
 
       <h1
         className="text-2xl my-5"
-        style={ {
+        style={{
           marginLeft: '10%',
           marginRight: '10%',
-        } }
+        }}
       >
         Detalhes e Endereços para entrega
 
       </h1>
       <div
         className="border-2 p-3 shadow-2xl mb-12 flex flex-col items-center"
-        style={ {
+        style={{
           marginLeft: '10%',
           marginRight: '10%',
-        } }
+        }}
       >
         <div
           className="flex"
@@ -167,9 +167,8 @@ export default function Checkout() {
               P. Vendedora Responsável
 
             </h3>
-            {console.log(sellers)}
             {sellers.length > 0
-              ? <Select sellers={ sellers } setSellerId={ setSellerId } /> : null}
+              ? <Select sellers={sellers} setSellerId={setSellerId} /> : null}
           </div>
           <div
             className="px-12"
@@ -182,8 +181,8 @@ export default function Checkout() {
             focus:outline-none focus:shadow-outline
             focus:border focus:border-verde-claro"
               data-testid="customer_checkout__input-address"
-              value={ deliveryAddress }
-              onChange={ (e) => setAdress(e.target.value) }
+              value={deliveryAddress}
+              onChange={(e) => setAdress(e.target.value)}
               type="text"
               placeholder="Rua"
             />
@@ -199,8 +198,8 @@ export default function Checkout() {
             focus:outline-none focus:shadow-outline
             focus:border focus:border-verde-claro"
               data-testid="customer_checkout__input-address-number"
-              value={ deliveryNumber }
-              onChange={ (e) => setNumber(e.target.value) }
+              value={deliveryNumber}
+              onChange={(e) => setNumber(e.target.value)}
               type="text"
               placeholder="Número"
             />
@@ -215,8 +214,8 @@ export default function Checkout() {
           }
           data-testid="customer_checkout__button-submit-order"
           type="button"
-          onClick={ () => handleSubmit() }
-          disabled={ disabled }
+          onClick={() => handleSubmit()}
+          disabled={disabled}
         >
           Finalizar Pedido
         </button>

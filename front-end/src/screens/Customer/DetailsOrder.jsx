@@ -16,7 +16,6 @@ export default function DetailsOrder() {
   useEffect(() => {
     const getSellers = async () => {
       const res = await Get(`/customer/orders/${id}`);
-      console.log(res);
       setProducts(res.products);
       setTotal(res.totalPrice);
       setStatus(res.status);
@@ -30,32 +29,32 @@ export default function DetailsOrder() {
       <NavBar />
       <h1
         className="text-2xl my-5"
-        style={ {
+        style={{
           marginLeft: '5%',
           marginRight: '5%',
-        } }
+        }}
       >
         Detalhes do Pedido
 
       </h1>
       <div
         className="border-2 shadow-2xl"
-        style={ {
+        style={{
           marginLeft: '5%',
           marginRight: '5%',
-        } }
+        }}
       >
         <HeaderOrdersDetail
-          id={ order.id }
-          sellerName={ order.sellerName }
-          saleDate={ order.saleDate }
-          status={ order.status }
+          id={order.id}
+          sellerName={order.sellerName}
+          saleDate={order.saleDate}
+          status={order.status}
         />
         <div
-          style={ {
+          style={{
             marginLeft: '5%',
             marginRight: '5%',
-          } }
+          }}
           className="grid grid-cols-6 text-center mt-2"
         >
           <p>Item</p>
@@ -72,15 +71,15 @@ export default function DetailsOrder() {
         {
           products?.map((item, index) => (
             <div
-              style={ {
+              style={{
                 marginLeft: '5%',
                 marginRight: '5%',
-              } }
+              }}
               className="grid grid-cols-6 text-center items-center justify-center my-3
             text-lg"
-              key={ index }
+              key={index}
             >
-              <OrderDetailsItem rote="customer" item={ item } index={ index } />
+              <OrderDetailsItem rote="customer" item={item} index={index} />
             </div>
           ))
         }

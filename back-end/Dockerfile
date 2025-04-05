@@ -2,8 +2,6 @@ FROM node:18
 
 WORKDIR /app
 
-# RUN apt-get update && apt-get install -y default-mysql-client
-
 # Copiar package.json e package-lock.json
 COPY package*.json ./
 
