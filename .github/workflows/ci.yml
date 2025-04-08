@@ -1,0 +1,63 @@
+name: CI - Project Delivery App
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  backend-tests:
+    name: Back-End Tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: delivery_app
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Instala Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instala dependências do back-end
+        working-directory: back-end
+        run: npm install
+
+      - name: Executa testes do back-end
+        working-directory: back-end
+        run: npm test
+
+  frontend-tests:
+    name: Front-End Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Instala Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instala dependências do front-end
+        working-directory: front-end
+        run: npm install
+
+      - name: Executa testes do front-end
+        working-directory: front-end
+        run: npm test
